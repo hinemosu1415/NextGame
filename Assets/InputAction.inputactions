@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SpawnAlly",
+                    "type": "Button",
+                    "id": "d2822b4d-dbc8-4efc-a2ff-4016e872c507",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -445,6 +454,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slot4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbc491da-66ae-489c-ab8c-220f30188691",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnAlly",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

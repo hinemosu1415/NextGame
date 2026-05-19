@@ -769,6 +769,7 @@ GameObject:
   - component: {fileID: 2657262360820082321}
   - component: {fileID: 53369434894549803}
   - component: {fileID: 6808467293976408606}
+  - component: {fileID: 2521965484126557445}
   - component: {fileID: 6304543317347794888}
   - component: {fileID: 2661061160532804966}
   - component: {fileID: 7320677745884557263}
@@ -914,6 +915,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 17974c6c9dc6548b9b23614bcfe6d043, type: 2}
   - {fileID: 11400000, guid: 18c8021b666b54431a5b9474ee4efdc3, type: 2}
   _structurePlacement: {fileID: 5636535060355214845}
+--- !u!114 &2521965484126557445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792236778970836163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56acd7eaa6a3b4e7898b4fc3613db3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAllyManager
+  _allyEntries:
+  - {fileID: 11400000, guid: 562a53d9aa69f4ba2bc4b168bbeda0da, type: 2}
+  - {fileID: 11400000, guid: d9ad6f7c869704afd91adb7eb1390dc7, type: 2}
+  - {fileID: 11400000, guid: 1f5e284c021124dbf965d3d4f9166ca5, type: 2}
+  _spawnCost: 10
+  _spawnTransform: {fileID: 0}
+  _targetTransform: {fileID: 0}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bde8f3560cfea40aad262d2a835090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  _maxHealth: 200
+  _maxHealth: 90
   _currentHealth: 0
 --- !u!114 &7320677745884557263
 MonoBehaviour:
@@ -982,10 +1002,13 @@ MonoBehaviour:
   _currencies:
   - Type: 0
     MaxAmount: 200
-    Amount: 200
+    Amount: 10
   - Type: 1
     MaxAmount: 500
     Amount: 0
+  - Type: 2
+    MaxAmount: 100
+    Amount: 10
 --- !u!114 &4403821164584887795
 MonoBehaviour:
   m_ObjectHideFlags: 0

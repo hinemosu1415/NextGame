@@ -187,8 +187,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.1764705}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6428679312395715546}
   - {fileID: 2011598554727204710}
@@ -242,7 +242,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6367560908665664636, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bde8f3560cfea40aad262d2a835090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  _maxHealth: 100
+  _maxHealth: 200
   _currentHealth: 0
 --- !u!114 &2447270333455950194
 MonoBehaviour:
@@ -288,7 +288,7 @@ MonoBehaviour:
     SearchRange: 10
     BaseTargetLockRange: 0
     TargetTag: Enemy
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 2301998311577500797}
   _environmentSensor: {fileID: 7767269331947246720}
   _baseTarget: {fileID: 0}
   _behaviourTreeBuilder: {fileID: 11400000, guid: 1a6b5f308c34349cf84418cd8d2e99fd, type: 2}
@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6577305756939457091, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
       propertyPath: _weaponData.DamageAmount
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6717655182974550672, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
       propertyPath: m_Layer
@@ -538,6 +538,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
+--- !u!114 &2301998311577500797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6577305756939457091, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
+  m_PrefabInstance: {fileID: 4950898517366419006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d395051b1a94a45f6a25cd68771e140e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Melee
 --- !u!4 &8015576593142934226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3136778619705771244, guid: 3ca1b94ed166f4547be27fc63a8df5ea, type: 3}
