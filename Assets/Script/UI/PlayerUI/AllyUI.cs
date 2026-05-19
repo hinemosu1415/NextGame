@@ -6,7 +6,7 @@ using TMPro;
 public class AllyUI : MonoBehaviour
 {
     [SerializeField] private PlayerAllyManager _playerAllyManager;
-    [SerializeField] private Image _experieneBarFill;
+    [SerializeField] private Image _experienceBarFill;
     [SerializeField] private Image _nextAllyWeaponImage;
     [SerializeField] private TMP_Text _entryNumberText;
     [SerializeField] private float _speed = 5f; // 大きいほど速い
@@ -19,7 +19,7 @@ public class AllyUI : MonoBehaviour
         _playerAllyManager.OnSpawnCapacityChanged += UpdateSpawnCapacity;
         _playerAllyManager.OnNextAllyEntryChanged += UpdateWeaponImage;
 
-        _experieneBarFill.fillAmount = _playerAllyManager.ExperienceForNextRatio;
+        _experienceBarFill.fillAmount = _playerAllyManager.ExperienceForNextRatio;
         _entryNumberText.text = _playerAllyManager.AllyToken.ToString();
         _nextAllyWeaponImage.sprite = _playerAllyManager.NextAllyEntry.WeaponImage;
     }
@@ -32,8 +32,8 @@ public class AllyUI : MonoBehaviour
 
     private void Update()
     {
-        _experieneBarFill.fillAmount = Mathf.Lerp(
-            _experieneBarFill.fillAmount,
+        _experienceBarFill.fillAmount = Mathf.Lerp(
+            _experienceBarFill.fillAmount,
             _targetExperienceRatio,
             Time.deltaTime * _speed
         );
