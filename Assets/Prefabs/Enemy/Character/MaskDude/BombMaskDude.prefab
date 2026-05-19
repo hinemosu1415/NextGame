@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 3086154318967958022}
   - component: {fileID: 7446688044297608900}
   m_Layer: 8
-  m_Name: MaskDude
+  m_Name: BombMaskDude
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
