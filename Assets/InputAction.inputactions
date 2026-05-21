@@ -316,6 +316,28 @@
                 },
                 {
                     "name": "",
+                    "id": "new-key-j-attack",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "new-key-k-attack2",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b661b233-b6cf-41c1-9f62-b4cfe968a536",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -402,17 +424,7 @@
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
-                {
-                    "name": "",
-                    "id": "792ea2f0-e9a8-4bc0-b9a9-9e1aba5f39bc",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ModeChange",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
+                
                 {
                     "name": "",
                     "id": "b7ebf702-c6a5-42b2-b904-9f39dae55b1e",

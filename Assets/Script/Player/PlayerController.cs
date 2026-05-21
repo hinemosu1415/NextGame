@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _attackAction2;
-    private InputAction _modeChange;
     private InputAction[] _slotSelectActions;
     private InputAction _spawnAllyAction;
     private float _moveInputX;
@@ -58,7 +57,6 @@ public class PlayerController : MonoBehaviour
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _attackAction2 = InputSystem.actions.FindAction("Attack2");
-        _modeChange = InputSystem.actions.FindAction("ModeChange");
         _slotSelectActions = new InputAction[MAX_SLOT_COUNT];
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
@@ -74,7 +72,7 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
-        _modeChange.performed += ChangeMode;
+        // Mode change (f) disabled per design
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed += SelectSlot;
@@ -89,7 +87,7 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
-        _modeChange.performed -= ChangeMode;
+        // Mode change (f) disabled per design
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed -= SelectSlot;
@@ -191,9 +189,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (CurrentMode == Mode.Building)
         {
-            //建築モードのときは攻撃ボタンで建築配置
-            _structureManager.TryPlaceStructure();
+            // 建築モードで攻撃ボタンが押されたら攻撃モードに移行して即攻撃
+            _structureManager.ExitBuildingMode();
+            CurrentMode = Mode.Attack;
+            OnModeChanged?.Invoke(CurrentMode);
 
+            if (_weaponManager.TryUsePrimaryWeapon())
+                AttackAnimation();
         }
     }
 
@@ -204,24 +206,14 @@ public class PlayerController : MonoBehaviour
             if (_weaponManager.TryUseSecondaryWeapon())
                 AttackAnimation();
         }
-    }
-
-    private void ChangeMode(InputAction.CallbackContext context)
-    {
-        Debug.Log("Mode Change");
-        if (CurrentMode == Mode.Attack)
-        {
-            CurrentMode = Mode.Building;
-            _structureManager.EnterBuildingMode();
-        }
         else if (CurrentMode == Mode.Building)
         {
-            CurrentMode = Mode.Attack;
-            _structureManager.ExitBuildingMode();
+            // 建築モードでは右クリックで配置
+            _structureManager.TryPlaceStructure();
         }
-
-        OnModeChanged?.Invoke(CurrentMode);
     }
+
+    // ModeChange (f) disabled per request; method removed.
 
     private void SelectSlot(InputAction.CallbackContext context)
     {
@@ -234,6 +226,14 @@ public class PlayerController : MonoBehaviour
             _ => throw new System.NotImplementedException()
         };
         _structureManager.SelectStructure(slotIndex);
+
+        // 常に建築モードに入る（既に建築モードなら選択のみ）
+        if (CurrentMode != Mode.Building)
+        {
+            CurrentMode = Mode.Building;
+            _structureManager.EnterBuildingMode();
+            OnModeChanged?.Invoke(CurrentMode);
+        }
     }
 
     private void SpawnAlly(InputAction.CallbackContext context)
@@ -259,7 +259,6 @@ public class PlayerController : MonoBehaviour
             _jumpAction.Disable();
             _attackAction.Disable();
             _attackAction.Disable();
-            _modeChange.Disable();
         }
         else
         {
@@ -267,7 +266,7 @@ public class PlayerController : MonoBehaviour
             _jumpAction.Enable();
             _attackAction.Enable();
             _attackAction.Enable();
-            _modeChange.Enable();
+
         }
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
