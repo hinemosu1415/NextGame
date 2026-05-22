@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf8fb7e89da18044ba67a9fffa6fc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher2D
-  _executeInterval: 2
+  _executeInterval: 8
   missilePrefab: {fileID: 3526564243829748468, guid: e8eb2e352752d3840bcb368a39418594, type: 3}
   firePoint: {fileID: 8642870326282586605}
-  missileCount: 5
+  missileCount: 2
   baseAngle: 10
   spreadAngle: 30
   targetRange: 20

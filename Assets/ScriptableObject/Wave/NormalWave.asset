@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041ed1f04148e48168b84a8af36d29ad, type: 3}
+  m_Name: NormalWave
+  m_EditorClassIdentifier: Assembly-CSharp::WaveData
+  EnemyList:
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 0.5
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 0.5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 10
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 10
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 4
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 3
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 10
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 3
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 8
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 3
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 4
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 3
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 4
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 4
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 6
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: df3f37a67b4134bd4bbacd205c05f44a, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 4
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 5
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: 60ec3d245fc7b47529faf9e76a50d792, type: 3}
+    SpawnDelaySecond: 8
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 2
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 3
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 10
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 7412631041521350378, guid: 09844f4039c61480f8a12f2002554621, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 7
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 1
+  - EnemyPrefab: {fileID: 646240635104298902, guid: f74163734383342228342b66c71ac98a, type: 3}
+    SpawnDelaySecond: 1

@@ -119,7 +119,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6367560908665664636, guid: cd947491a13509945aa1b644f9db3ef2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -158,10 +158,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAIController
   _context:
-    Speed: 1
+    Speed: 0.6
     JumpForwardSpeed: 1.2
     JumpForce: 5
-    AttackRange: 5
+    AttackRange: 3
     SearchRange: 6
     BaseTargetLockRange: 0
     TargetTag: Player

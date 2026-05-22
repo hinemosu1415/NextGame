@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAnimator))]
 [RequireComponent(typeof(PlayerWeaponManager))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(PlayerAllyManager))]
+[RequireComponent(typeof(PlayerBuildingManager))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private InputActionAsset _inputActions;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimator _playerAnimator;
     private PlayerWeaponManager _weaponManager;
     private PlayerBuildingManager _structureManager;
-    private Health _health;
+    private PlayerAllyManager _allyManager;
 
     private InputAction _moveAction;
     private InputAction _jumpAction;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _attackAction2;
     private InputAction _modeChange;
     private InputAction[] _slotSelectActions;
+    private InputAction _spawnAllyAction;
     private float _moveInputX;
     private float _currentSpeed;
     private int _currentJumpCount = 0;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimator = GetComponent<PlayerAnimator>();
         _weaponManager = GetComponent<PlayerWeaponManager>();
         _structureManager = GetComponent<PlayerBuildingManager>();
-        _health = GetComponent<Health>();
+        _allyManager = GetComponent<PlayerAllyManager>();
 
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             _slotSelectActions[i] = InputSystem.actions.FindAction($"Slot{i + 1}");
         }
+        _spawnAllyAction = InputSystem.actions.FindAction("SpawnAlly");
     }
 
     private void OnEnable()
@@ -76,6 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             _slotSelectActions[i].performed += SelectSlot;
         }
+        _spawnAllyAction.performed += SpawnAlly;
     }
 
     private void OnDisable()
@@ -90,6 +94,7 @@ public class PlayerController : MonoBehaviour
         {
             _slotSelectActions[i].performed -= SelectSlot;
         }
+        _spawnAllyAction.performed -= SpawnAlly;
     }
 
     private void Update()
@@ -231,6 +236,11 @@ public class PlayerController : MonoBehaviour
         _structureManager.SelectStructure(slotIndex);
     }
 
+    private void SpawnAlly(InputAction.CallbackContext context)
+    {
+        _allyManager.TrySpawnAlly();
+    }
+
     private void AttackAnimation()
     {
         _currentSpeed = 0f;
@@ -244,11 +254,25 @@ public class PlayerController : MonoBehaviour
             _currentSpeed = 0f;
             _moveInputX = 0f;
             _rigidbody.linearVelocityX = 0f;
-            _inputActions.FindActionMap("Player").Disable();
-            return;
+
+            _moveAction.Disable();
+            _jumpAction.Disable();
+            _attackAction.Disable();
+            _attackAction.Disable();
+            _modeChange.Disable();
+        }
+        else
+        {
+            _moveAction.Enable();
+            _jumpAction.Enable();
+            _attackAction.Enable();
+            _attackAction.Enable();
+            _modeChange.Enable();
         }
 
-        _inputActions.FindActionMap("Player").Enable();
+        //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
+        CurrentMode = Mode.Attack;
+        OnModeChanged?.Invoke(CurrentMode);
     }
 }
 

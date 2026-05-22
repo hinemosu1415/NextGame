@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8860716368864090204}
   - component: {fileID: 6259430126860271989}
+  - component: {fileID: 3526564243829748468}
   - component: {fileID: 1290252913791368360}
   - component: {fileID: 6747138814995098857}
-  - component: {fileID: 3526564243829748468}
   - component: {fileID: 8962385219708399923}
   m_Layer: 9
   m_Name: Misslie_valet
@@ -127,6 +127,30 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3526564243829748468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719304359150711796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d16f65a8244b9798f554261617af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Missile2D
+  _speed: 10
+  _lifeTime: 5
+  _damageAmount: 50
+  _destroyOnHit: 1
+  _groundHitStop: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _rotateSpeed: 200
+  _homingDelay: 0.5
+  _explosionDamage: 30
+  _explosionPrefab: {fileID: 5810559904800018322, guid: 2b8b348738bff49d98d4b729faa3406c, type: 3}
 --- !u!50 &1290252913791368360
 Rigidbody2D:
   serializedVersion: 5
@@ -200,30 +224,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 21.46376, y: 2.8}
   m_EdgeRadius: 0
---- !u!114 &3526564243829748468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4719304359150711796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f12d16f65a8244b9798f554261617af2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Missile2D
-  _speed: 10
-  _lifeTime: 5
-  _damageAmount: 50
-  _destroyOnHit: 1
-  _groundHitStop: 0
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _rotateSpeed: 200
-  _homingDelay: 0.5
-  _explosionDamage: 15
-  _explosionPrefab: {fileID: 5810559904800018322, guid: 2b8b348738bff49d98d4b729faa3406c, type: 3}
 --- !u!114 &8962385219708399923
 MonoBehaviour:
   m_ObjectHideFlags: 0

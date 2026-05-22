@@ -247,7 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoTurret
   _executeInterval: 2
   targetTag: Enemy
-  maxRange: 100
+  maxRange: 4
   firePoint: {fileID: 3143680211768704691}
   projectilePrefab: {fileID: 3903467889774677732, guid: dbf8569820cd2f7468dce360c7b2d960, type: 3}
   muzzle: {fileID: 194651220801229419}

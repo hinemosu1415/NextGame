@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StructureData
   Prefab: {fileID: 2868774408571263601, guid: bd8e70e7dbf563346bf6ca3c039ec361, type: 3}
   Image: {fileID: 21300000, guid: 98b960f0d9707db479b897ecb27f8ef1, type: 3}
-  Cost: 50
-  BuildTime: 5
+  Cost: 80
+  BuildTime: 10
   GridSize: {x: 2, y: 2}
