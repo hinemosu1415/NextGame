@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class WaveEnemySpawner : MonoBehaviour
+public class WaveEnemySpawner : MonoBehaviour, IWaveProgressProvider
 {
     [SerializeField] private Transform _target;
-    [SerializeField] private int _firstIndex = 0;
+    [SerializeField] private int _firstIndex = 0;//最初からスポーンする敵のインデックス(デバッグ用)
     [SerializeField] private WaveData _waveData;
     [SerializeField] private CurrencyWallet _playerCurrencyWallet;
     [SerializeField] private int _killExperience = 1; //TODO:個別で経験値を設定する場合は経験値処理を分ける
@@ -20,8 +20,9 @@ public class WaveEnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        _enemyIndex = _firstIndex;
-        _maxEnemyCount = _waveData.EnemyList.Length != 0 ? _waveData.EnemyList.Length : 1;
+        _enemyIndex = Mathf.Clamp(_firstIndex, 0, _waveData.EnemyList.Length);
+        _maxEnemyCount = _waveData.EnemyList.Length - _firstIndex;
+        GameManager.Instance.EnemyWaveProgressProviders.Add(this);
     }
 
     private void Update()
@@ -53,14 +54,5 @@ public class WaveEnemySpawner : MonoBehaviour
         _killedEnemyCount++;
         _playerCurrencyWallet.AddCurrency(CurrencyData.CurrencyType.Experience, _killExperience);
         OnProgressChanged?.Invoke(ProgressRatio);
-    }
-    private bool CheckStageClear()
-    {
-        if (transform.childCount <= 0)
-        {
-            return true;
-        }
-
-        return false;
     }
 }
