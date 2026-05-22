@@ -2555,27 +2555,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6640142761567771731, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2629,6 +2629,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7847231649549346937, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847231649549346937, guid: 73d7c739d54a24fe98a3dd654c499c5d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2657,27 +2665,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2726,6 +2734,14 @@ PrefabInstance:
     - target: {fileID: 5033705476770435168, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223067109762904124, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223067109762904124, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5730103847661181718, guid: c27aae9a6c1b54c6abdea4dc03eb4300, type: 3}
       propertyPath: m_Name
