@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -16,6 +17,8 @@ public abstract class WeaponBase : MonoBehaviour
     }
 
     public WeaponState CurrentState { get; private set; } = WeaponState.Idle;
+
+    public event Action<WeaponBase> OnAttackCompleted;
 
     public string WeaponName => _weaponData.WeaponName;
 
@@ -37,6 +40,8 @@ public abstract class WeaponBase : MonoBehaviour
     {
         CurrentState = WeaponState.Attacking;
         yield return AttackCoroutine();
+
+        OnAttackCompleted?.Invoke(this);
 
         CurrentState = WeaponState.CoolingDown;
         yield return new WaitForSeconds(_weaponData.CoolTime);
