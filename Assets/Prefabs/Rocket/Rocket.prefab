@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9060961836056297991}
   - component: {fileID: 6165980054756837820}
+  - component: {fileID: 584181246206858617}
   - component: {fileID: 8732412041219636183}
   - component: {fileID: 1757136410857081314}
   m_Layer: 11
@@ -50,6 +51,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 300
   _currentHealth: 0
+--- !u!114 &584181246206858617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730654471255087812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cf22dede63845e28454c39265ea07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rocket
+  _health: {fileID: 0}
 --- !u!61 &8732412041219636183
 BoxCollider2D:
   m_ObjectHideFlags: 0

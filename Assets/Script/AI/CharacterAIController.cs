@@ -70,6 +70,12 @@ public class CharacterAIController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.CurrentGameState != GameState.Playing)
+        {
+            _rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (_baseTarget == null)
             return;
 
