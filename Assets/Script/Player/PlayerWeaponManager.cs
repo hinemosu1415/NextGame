@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField] private WeaponBase[] _weapons;
-    // -1 means no weapon is currently equipped
+    // -1は、現在武器が装備されていないことを意味します。
     private int _currentWeaponIndex = -1;
 
     public WeaponBase.WeaponState CurrentWeaponState =>
@@ -25,22 +25,11 @@ public class PlayerWeaponManager : MonoBehaviour
             weapon.OnAttackCompleted += HandleWeaponAttackCompleted;
         }
 
-        // Start with sword selected, but keep it hidden until an attack happens.
+        // デフォルトは剣、攻撃が発生するまでは剣を隠しておく。
         if (_weapons != null && _weapons.Length > 0)
         {
             SelectWeapon(0);
         }
-    }
-
-    public void EnterBuildingMode()
-    {
-        UnequipCurrentWeapon();
-    }
-
-    public void ExitBuildingMode()
-    {
-        // 建築モードから抜けたときは、次の攻撃入力まで非表示のままにする
-        UnequipCurrentWeapon();
     }
 
     private void OnDestroy()
@@ -73,7 +62,7 @@ public class PlayerWeaponManager : MonoBehaviour
         _currentWeaponIndex = index;
     }
 
-    // Equip a weapon without triggering its attack. index must be valid.
+    // 選択した武器を装備する（攻撃は別途TryUseSelectedWeaponで行う）
     public void EquipWeapon(int index)
     {
         if (index < 0 || index >= _weapons.Length) return;
@@ -84,26 +73,14 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public bool TryUseSelectedWeapon()
     {
-        if (_weapons == null || _weapons.Length == 0) return false;
-        if (_currentWeaponIndex < 0 || _currentWeaponIndex >= _weapons.Length) return false;
-
-        if (_weapons[_currentWeaponIndex].CurrentState != WeaponBase.WeaponState.Idle)
-            return false;
-
-        _weapons[_currentWeaponIndex].Equip();
-        return _weapons[_currentWeaponIndex].TryUseWeapon();
-    }
-
-    // Use the currently equipped weapon (without changing the equipped index)
-    public bool TryUseEquippedWeapon()
-    {
-        if (_weapons == null || _weapons.Length == 0) return false;
-        if (_currentWeaponIndex < 0 || _currentWeaponIndex >= _weapons.Length) return false;
-        return _weapons[_currentWeaponIndex].TryUseWeapon();
+        return TryUseWeapon(_currentWeaponIndex);
     }
 
     private bool TryUseWeapon(int index)
     {
+        if (_weapons == null || _weapons.Length == 0) return false;
+        if (index < 0 || index >= _weapons.Length) return false;
+
         if (CurrentWeaponState != WeaponBase.WeaponState.Idle) return false;
 
         if (_currentWeaponIndex != index && _currentWeaponIndex >= 0 && _currentWeaponIndex < _weapons.Length)
@@ -119,11 +96,6 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (_currentWeaponIndex >= 0 && _currentWeaponIndex < _weapons.Length)
             _weapons[_currentWeaponIndex].Unequip();
-    }
-
-    public void HideCurrentWeapon()
-    {
-        UnequipCurrentWeapon();
     }
 
     private void HandleWeaponAttackCompleted(WeaponBase weapon)

@@ -76,9 +76,6 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
-        if (_equipPrimaryAction != null) _equipPrimaryAction.performed += EquipPrimary;
-        if (_equipSecondaryAction != null) _equipSecondaryAction.performed += EquipSecondary;
-        // Mode change (f) disabled per design
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed += SelectSlot;
@@ -93,9 +90,6 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
-        if (_equipPrimaryAction != null) _equipPrimaryAction.performed -= EquipPrimary;
-        if (_equipSecondaryAction != null) _equipSecondaryAction.performed -= EquipSecondary;
-        // Mode change (f) disabled per design
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed -= SelectSlot;
@@ -217,32 +211,34 @@ public class PlayerController : MonoBehaviour
     private void EquipPrimary(InputAction.CallbackContext context)
     {
         // E: 武器の選択だけ行い、表示は攻撃時に限定する
-        if (CurrentMode == Mode.Building)
-        {
-            _structureManager.ExitBuildingMode();
-            _weaponManager.ExitBuildingMode();
-        }
-
-        CurrentMode = Mode.Attack;
+        SwitchMode(Mode.Attack);
         _weaponManager.SelectWeapon(0);
-        OnModeChanged?.Invoke(CurrentMode);
     }
 
     private void EquipSecondary(InputAction.CallbackContext context)
     {
         // R: 武器の選択だけ行い、表示は攻撃時に限定する
-        if (CurrentMode == Mode.Building)
-        {
-            _structureManager.ExitBuildingMode();
-            _weaponManager.ExitBuildingMode();
-        }
-
-        CurrentMode = Mode.Attack;
+        SwitchMode(Mode.Attack);
         _weaponManager.SelectWeapon(1);
-        OnModeChanged?.Invoke(CurrentMode);
     }
 
-    // ModeChange (f) disabled per request; method removed.
+    private void SwitchMode(Mode mode)
+    {
+        if (CurrentMode == Mode.Building && mode != Mode.Building)
+        {
+            _structureManager.ExitBuildingMode();
+            _weaponManager.UnequipCurrentWeapon();
+        }
+
+        if (CurrentMode != Mode.Building && mode == Mode.Building)
+        {
+            _structureManager.EnterBuildingMode();
+            _weaponManager.UnequipCurrentWeapon();
+        }
+
+        CurrentMode = mode;
+        OnModeChanged?.Invoke(CurrentMode);
+    }
 
     private void SelectSlot(InputAction.CallbackContext context)
     {
@@ -259,10 +255,7 @@ public class PlayerController : MonoBehaviour
         // 常に建築モードに入る（既に建築モードなら選択のみ）
         if (CurrentMode != Mode.Building)
         {
-            CurrentMode = Mode.Building;
-            _structureManager.EnterBuildingMode();
-            _weaponManager.EnterBuildingMode();
-            OnModeChanged?.Invoke(CurrentMode);
+            SwitchMode(Mode.Building);
         }
     }
 
@@ -288,20 +281,19 @@ public class PlayerController : MonoBehaviour
             _moveAction.Disable();
             _jumpAction.Disable();
             _attackAction.Disable();
-            _attackAction.Disable();
+            _attackAction2.Disable();
         }
         else
         {
             _moveAction.Enable();
             _jumpAction.Enable();
             _attackAction.Enable();
-            _attackAction.Enable();
+            _attackAction2.Enable();
 
         }
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
-        CurrentMode = Mode.Attack;
-        OnModeChanged?.Invoke(CurrentMode);
+        SwitchMode(Mode.Attack);
     }
 }
 
