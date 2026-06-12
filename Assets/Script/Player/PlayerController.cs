@@ -76,6 +76,8 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
         _attackAction2.performed += SecondaryAttack;
+        _equipPrimaryAction.performed += EquipPrimary;
+        _equipSecondaryAction.performed += EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed += SelectSlot;
@@ -90,6 +92,8 @@ public class PlayerController : MonoBehaviour
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
         _attackAction2.performed -= SecondaryAttack;
+        _equipPrimaryAction.performed -= EquipPrimary;
+        _equipSecondaryAction.performed -= EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed -= SelectSlot;
