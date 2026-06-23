@@ -16,11 +16,13 @@ public class CharacterAIController : MonoBehaviour
     private Blackboard _blackboard = new Blackboard();
     private BehaviourTree _behaviourTree;
     private Health _health;
+    private CharacterDeathAnimator _deathAnimator;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _health = GetComponent<Health>();
+        _deathAnimator = GetComponent<CharacterDeathAnimator>();
     }
 
     public void Init(Transform baseTarget)
@@ -83,14 +85,17 @@ public class CharacterAIController : MonoBehaviour
         {
             _behaviourTree.Process();
         }
-        else
-        {
-            _rigidbody.linearVelocity = Vector2.zero;
-        }
     }
 
     private void Die()
     {
-        Destroy(gameObject);
+        _isChasing = false;
+        const float DESTROY_DELAY = 0.5f;
+
+        if (_deathAnimator != null)
+        {
+            _deathAnimator.PlayDeathAnimation(DESTROY_DELAY);
+        }
+        Destroy(gameObject, DESTROY_DELAY);
     }
 }
