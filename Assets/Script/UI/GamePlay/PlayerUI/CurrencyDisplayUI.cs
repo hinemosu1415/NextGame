@@ -3,10 +3,13 @@ using TMPro;
 
 public class CurrencyDisplayUI : MonoBehaviour
 {
-    [SerializeField] private CurrencyWallet _playerWallet;
     [SerializeField] private TMP_Text _numberText;
+    private CurrencyWallet _playerWallet;
+
     private void Start()
     {
+        _playerWallet = GameManager.Instance.Player.GetComponent<CurrencyWallet>();
+
         // 初期表示
         int current = _playerWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin);
         _numberText.text = current.ToString();
