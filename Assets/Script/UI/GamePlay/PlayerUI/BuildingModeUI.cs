@@ -4,19 +4,16 @@ using UnityEngine;
 public class BuildingModeUI : MonoBehaviour
 {
     [SerializeField] private StructureEntryUI _entryPrefab;
+    [SerializeField] private PlayerBuildingManager _buildingManager;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject _structureSlot;
     [SerializeField] private GameObject _buildIcon;
 
-    private PlayerController _playerController;
-    private PlayerBuildingManager _buildingManager;
     private List<StructureEntryUI> _entryUIList = new();
     private bool _cashedCanBuild = true;
 
     private void Start()
     {
-        _playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
-        _buildingManager = GameManager.Instance.Player.GetComponent<PlayerBuildingManager>();
-
         for (int i = 0; i < _buildingManager.Entries.Count; i++)
         {
             StructureEntryUI entryUI = Instantiate(_entryPrefab, _structureSlot.transform);

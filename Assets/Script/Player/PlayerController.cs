@@ -65,8 +65,6 @@ public class PlayerController : MonoBehaviour
             _slotSelectActions[i] = InputSystem.actions.FindAction($"Slot{i + 1}");
         }
         _spawnAllyAction = InputSystem.actions.FindAction("SpawnAlly");
-
-        GameManager.Instance.RegisterPlayer(gameObject);
     }
 
     private void OnEnable()

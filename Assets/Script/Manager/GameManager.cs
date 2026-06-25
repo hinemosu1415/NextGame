@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public GameState CurrentGameState { get; private set; } = GameState.Playing;
-    public event Action<GameState> OnGameStateChanged;
+    public Action<GameState> OnGameStateChanged;
     public List<IWaveProgressProvider> EnemyWaveProgressProviders { get; private set; } = new(); //敵スポナーが複数あっても対応できるようにリストで管理
     public float EnemyWaveProgress { get; private set; } = 0;
     public event Action<float> OnEnemyWaveProgressChanged;
-    public GameObject Player { get; private set; }
+
+
 
     private void Awake()
     {
@@ -50,11 +51,6 @@ public class GameManager : MonoBehaviour
             totalProgress += provider.ProgressRatio;
         }
         return totalProgress / EnemyWaveProgressProviders.Count;
-    }
-
-    public void RegisterPlayer(GameObject player)
-    {
-        Player = player;
     }
 
     public void OnRocketDestroyed()

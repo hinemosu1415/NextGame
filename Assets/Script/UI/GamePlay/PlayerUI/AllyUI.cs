@@ -5,18 +5,17 @@ using TMPro;
 
 public class AllyUI : MonoBehaviour
 {
+    [SerializeField] private PlayerAllyManager _playerAllyManager;
     [SerializeField] private Image _experienceBarFill;
     [SerializeField] private Image _nextAllyWeaponImage;
     [SerializeField] private TMP_Text _entryNumberText;
     [SerializeField] private float _speed = 5f; // 大きいほど速い
 
-    private PlayerAllyManager _playerAllyManager;
+
     private float _targetExperienceRatio;
 
     private void Start()
     {
-        _playerAllyManager = GameManager.Instance.Player.GetComponent<PlayerAllyManager>();
-
         _playerAllyManager.OnSpawnCapacityChanged += UpdateSpawnCapacity;
         _playerAllyManager.OnNextAllyEntryChanged += UpdateWeaponImage;
 
