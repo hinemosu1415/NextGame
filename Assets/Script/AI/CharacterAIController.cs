@@ -94,7 +94,7 @@ public class CharacterAIController : MonoBehaviour
 
         if (_deathAnimator != null)
         {
-            _deathAnimator.PlayDeathAnimation(DESTROY_DELAY);
+            _deathAnimator.PlayDeathAnimation();
         }
         Destroy(gameObject, DESTROY_DELAY);
     }
