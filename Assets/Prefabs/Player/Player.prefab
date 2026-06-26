@@ -344,8 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9835d50fb8847e4b6f1cb35305c22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingUI
-  _amplitude: 0.3
-  _frequency: 5
+  speed: 6
+  moveY: 0.1
 --- !u!1 &1585404557622010581
 GameObject:
   m_ObjectHideFlags: 0
