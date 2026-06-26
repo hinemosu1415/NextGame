@@ -38,15 +38,19 @@ public class CharacterDeathAnimator : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject != gameObject && collider.isTrigger)
+            if (collider.gameObject == gameObject) continue; // 自分自身は無視する
+
+            if (collider.CompareTag(tag)) continue; // 同じタグのオブジェクトは無視する
+
+            if (!collider.TryGetComponent<Hitbox>(out _)) continue; // Hitboxコンポーネントを持たないオブジェクトは無視する
+
+            float distanceSq = ((Vector2)collider.bounds.center - selfPos).sqrMagnitude;
+            if (distanceSq < closestDistanceSq)
             {
-                float distanceSq = ((Vector2)collider.bounds.center - selfPos).sqrMagnitude;
-                if (distanceSq < closestDistanceSq)
-                {
-                    closestDistanceSq = distanceSq;
-                    closestTrigger = collider;
-                }
+                closestDistanceSq = distanceSq;
+                closestTrigger = collider;
             }
+
         }
 
         if (closestTrigger != null)
