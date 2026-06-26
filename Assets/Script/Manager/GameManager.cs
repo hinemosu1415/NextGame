@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     public float EnemyWaveProgress { get; private set; } = 0;
     public event Action<float> OnEnemyWaveProgressChanged;
 
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }

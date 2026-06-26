@@ -3,8 +3,14 @@ using TMPro;
 
 public class CurrencyDisplayUI : MonoBehaviour
 {
-    [SerializeField] private CurrencyWallet _playerWallet;
     [SerializeField] private TMP_Text _numberText;
+    private CurrencyWallet _playerWallet;
+
+    public void Init(CurrencyWallet playerWallet)
+    {
+        _playerWallet = playerWallet;
+    }
+
     private void Start()
     {
         // 初期表示
