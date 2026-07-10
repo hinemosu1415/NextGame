@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 7094934525566895059}
   - component: {fileID: 6942169592057458539}
   - component: {fileID: -2979377028128810851}
+  - component: {fileID: 8655398854180244088}
   - component: {fileID: 206231485295626653}
   - component: {fileID: 3086154318967958022}
   - component: {fileID: 7446688044297608900}
@@ -309,6 +310,22 @@ MonoBehaviour:
   _dropTable: {fileID: 11400000, guid: b03e55d4119bc4265a7caecefb539ea9, type: 2}
   _spawnForceMax: 3
   _spawnForceMin: 1
+--- !u!114 &8655398854180244088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437554141696259431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855b679746af64090b564402617f542a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDeathAnimator
+  _knockbackForce: 5
+  _rotationSpeed: 100
+  _destroyDelay: 0.5
+  _searchRadius: 10
 --- !u!95 &206231485295626653
 Animator:
   serializedVersion: 7

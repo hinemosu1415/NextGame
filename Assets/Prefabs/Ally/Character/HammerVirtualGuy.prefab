@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 4802846330986505012}
   - component: {fileID: -7128699622607465095}
   - component: {fileID: 2447270333455950194}
+  - component: {fileID: -7688948703522607259}
   - component: {fileID: 206231485295626653}
   - component: {fileID: 3086154318967958022}
   - component: {fileID: 7446688044297608900}
@@ -293,6 +294,20 @@ MonoBehaviour:
   _baseTarget: {fileID: 0}
   _behaviourTreeBuilder: {fileID: 11400000, guid: 1a6b5f308c34349cf84418cd8d2e99fd, type: 2}
   _isChasing: 1
+--- !u!114 &-7688948703522607259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437554141696259431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855b679746af64090b564402617f542a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDeathAnimator
+  _knockbackForce: 5
+  _rotationSpeed: 100
 --- !u!95 &206231485295626653
 Animator:
   serializedVersion: 7

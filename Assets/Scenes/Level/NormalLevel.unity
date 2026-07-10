@@ -4380,7 +4380,7 @@ PrefabInstance:
     - target: {fileID: 2665468326329700584, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: _playerAllyManager
       value: 
-      objectReference: {fileID: 2043700776}
+      objectReference: {fileID: 2043700786}
     - target: {fileID: 4193249387171373993, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: _enemySpawner
       value: 
@@ -4452,7 +4452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b7ea7a79744fa41b48bba5c3aab37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
---- !u!114 &2043700776 stripped
+--- !u!114 &2043700786 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2521965484126557445, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
   m_PrefabInstance: {fileID: 1002139815}

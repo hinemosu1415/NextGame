@@ -16,7 +16,7 @@ public class CharacterDeathAnimator : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public void PlayDeathAnimation(float destroyDelay)
+    public void PlayDeathAnimation()
     {
         _rigidbody.constraints = RigidbodyConstraints2D.None;
 
@@ -25,8 +25,6 @@ public class CharacterDeathAnimator : MonoBehaviour
         _rigidbody.linearVelocity = knockbackDirection * _knockbackForce;
         transform.rotation = Quaternion.Euler(0, knockbackDirection.x < 0 ? 0 : 180, 0);
         StartCoroutine(AnimateDeathRotation(_rotationSpeed));
-
-        Destroy(gameObject, destroyDelay);
     }
 
     private Vector2 GetKnockbackDirection()
@@ -34,21 +32,25 @@ public class CharacterDeathAnimator : MonoBehaviour
         const float SEARCH_RADIUS = 1f;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, SEARCH_RADIUS);
-        Vector3 selfPos = transform.position;
+        Vector2 selfPos = transform.position;
         Collider2D closestTrigger = null;
         float closestDistanceSq = float.MaxValue;
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject != gameObject && collider.isTrigger)
+            if (collider.gameObject == gameObject) continue; // 自分自身は無視する
+
+            if (collider.CompareTag(tag)) continue; // 同じタグのオブジェクトは無視する
+
+            if (!collider.TryGetComponent<Hitbox>(out _)) continue; // Hitboxコンポーネントを持たないオブジェクトは無視する
+
+            float distanceSq = ((Vector2)collider.bounds.center - selfPos).sqrMagnitude;
+            if (distanceSq < closestDistanceSq)
             {
-                float distanceSq = ((Vector3)collider.bounds.center - selfPos).sqrMagnitude;
-                if (distanceSq < closestDistanceSq)
-                {
-                    closestDistanceSq = distanceSq;
-                    closestTrigger = collider;
-                }
+                closestDistanceSq = distanceSq;
+                closestTrigger = collider;
             }
+
         }
 
         if (closestTrigger != null)
