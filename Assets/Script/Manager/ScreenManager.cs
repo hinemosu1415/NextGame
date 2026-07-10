@@ -15,10 +15,9 @@ public class ScreenManager : MonoBehaviour
 
     public enum SceneType //ここで遷移するシーンを定義
     {
-        Title,
-        GetStarted_Scene,
-        Config,
-        StageSelect,
+        MainMenuScene,
+        EasyLevel,
+        NormalLevel
     }
 
     private void Awake()
