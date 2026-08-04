@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
-        _attackAction2 = InputSystem.actions.FindAction("Attack2");
         _equipPrimaryAction = InputSystem.actions.FindAction("EquipPrimary");
         _equipSecondaryAction = InputSystem.actions.FindAction("EquipSecondary");
         _slotSelectActions = new InputAction[MAX_SLOT_COUNT];
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
         _jumpAction.performed += Jump;
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
-        _attackAction2.performed += SecondaryAttack;
         _equipPrimaryAction.performed += EquipPrimary;
         _equipSecondaryAction.performed += EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
@@ -91,7 +89,6 @@ public class PlayerController : MonoBehaviour
         _jumpAction.performed -= Jump;
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
-        _attackAction2.performed -= SecondaryAttack;
         _equipPrimaryAction.performed -= EquipPrimary;
         _equipSecondaryAction.performed -= EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
@@ -199,19 +196,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SecondaryAttack(InputAction.CallbackContext context)
-    {
-        if (CurrentMode == Mode.Attack)
-        {
-            if (_weaponManager.TryUseSelectedWeapon())
-                AttackAnimation();
-        }
-        else if (CurrentMode == Mode.Building)
-        {
-            // 建築モードでのセカンダリ攻撃は特に動作させない（設置はプライマリで行う）
-        }
-    }
-
     private void EquipPrimary(InputAction.CallbackContext context)
     {
         // E: 武器の選択だけ行い、表示は攻撃時に限定する
@@ -228,19 +212,20 @@ public class PlayerController : MonoBehaviour
 
     private void SwitchMode(Mode mode)
     {
-        if (CurrentMode == Mode.Building && mode != Mode.Building)
-        {
-            _structureManager.ExitBuildingMode();
-            _weaponManager.UnequipCurrentWeapon();
-        }
+        if (CurrentMode == mode) return;
 
-        if (CurrentMode != Mode.Building && mode == Mode.Building)
-        {
-            _structureManager.EnterBuildingMode();
+        //モード終了処理
+        if (CurrentMode == Mode.Building)
+            _structureManager.ExitBuildingMode();
+        else if (CurrentMode == Mode.Attack)
             _weaponManager.UnequipCurrentWeapon();
-        }
 
         CurrentMode = mode;
+
+        //モード開始処理
+        if (CurrentMode == Mode.Building)
+            _structureManager.EnterBuildingMode();
+
         OnModeChanged?.Invoke(CurrentMode);
     }
 
@@ -256,11 +241,7 @@ public class PlayerController : MonoBehaviour
         };
         _structureManager.SelectStructure(slotIndex);
 
-        // 常に建築モードに入る（既に建築モードなら選択のみ）
-        if (CurrentMode != Mode.Building)
-        {
-            SwitchMode(Mode.Building);
-        }
+        SwitchMode(Mode.Building);
     }
 
     private void SpawnAlly(InputAction.CallbackContext context)
@@ -285,15 +266,12 @@ public class PlayerController : MonoBehaviour
             _moveAction.Disable();
             _jumpAction.Disable();
             _attackAction.Disable();
-            _attackAction2.Disable();
         }
         else
         {
             _moveAction.Enable();
             _jumpAction.Enable();
             _attackAction.Enable();
-            _attackAction2.Enable();
-
         }
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
