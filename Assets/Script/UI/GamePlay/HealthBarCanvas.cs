@@ -4,13 +4,17 @@ using System.Collections;
 
 public class HealthBarCanvas : MonoBehaviour
 {
-    [SerializeField] private Health _health;
     [SerializeField] private Image _healthBarFill;
     [SerializeField] private float _speed = 5f; // 大きいほど速い
-
+    private Health _health;
     private float _targetRatio;
     private bool _isOverrideAnimating;
     private Coroutine _overrideRoutine;
+
+    public void Init(Health health)
+    {
+        _health = health;
+    }
 
     private void Start()
     {

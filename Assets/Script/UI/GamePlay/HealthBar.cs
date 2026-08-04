@@ -8,10 +8,12 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         _health.OnHealthChanged += UpdateHealthBar;
+        _health.OnDied += HideHealthBar;
     }
     private void OnDestroy()
     {
         _health.OnHealthChanged -= UpdateHealthBar;
+        _health.OnDied -= HideHealthBar;
     }
 
     private void Update()
@@ -25,5 +27,10 @@ public class HealthBar : MonoBehaviour
         {
             _HealthBarFill.localScale = new Vector3(ratio, 1f, 1f);
         }
+    }
+
+    private void HideHealthBar()
+    {
+        gameObject.SetActive(false);
     }
 }
