@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _attackAction2;
-    private InputAction _modeChange;
+    private InputAction _equipPrimaryAction;
+    private InputAction _equipSecondaryAction;
     private InputAction[] _slotSelectActions;
     private InputAction _spawnAllyAction;
     private float _moveInputX;
@@ -57,8 +58,8 @@ public class PlayerController : MonoBehaviour
         _moveAction = InputSystem.actions.FindAction("Move");
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _attackAction = InputSystem.actions.FindAction("Attack");
-        _attackAction2 = InputSystem.actions.FindAction("Attack2");
-        _modeChange = InputSystem.actions.FindAction("ModeChange");
+        _equipPrimaryAction = InputSystem.actions.FindAction("EquipPrimary");
+        _equipSecondaryAction = InputSystem.actions.FindAction("EquipSecondary");
         _slotSelectActions = new InputAction[MAX_SLOT_COUNT];
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
@@ -73,8 +74,8 @@ public class PlayerController : MonoBehaviour
         _jumpAction.performed += Jump;
         _jumpAction.canceled += JumpCanceled;
         _attackAction.performed += PrimaryAttack;
-        _attackAction2.performed += SecondaryAttack;
-        _modeChange.performed += ChangeMode;
+        _equipPrimaryAction.performed += EquipPrimary;
+        _equipSecondaryAction.performed += EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed += SelectSlot;
@@ -88,8 +89,8 @@ public class PlayerController : MonoBehaviour
         _jumpAction.performed -= Jump;
         _jumpAction.canceled -= JumpCanceled;
         _attackAction.performed -= PrimaryAttack;
-        _attackAction2.performed -= SecondaryAttack;
-        _modeChange.performed -= ChangeMode;
+        _equipPrimaryAction.performed -= EquipPrimary;
+        _equipSecondaryAction.performed -= EquipSecondary;
         for (int i = 0; i < MAX_SLOT_COUNT; i++)
         {
             _slotSelectActions[i].performed -= SelectSlot;
@@ -105,7 +106,6 @@ public class PlayerController : MonoBehaviour
         if (_weaponManager.CurrentWeaponState != WeaponBase.WeaponState.Attacking)
         {
             UpdateRotation();
-            _weaponManager.UnequipCurrentWeapon();
 
             //移動処理            
             if (_moveInputX != 0)
@@ -186,39 +186,45 @@ public class PlayerController : MonoBehaviour
     {
         if (CurrentMode == Mode.Attack)
         {
-            if (_weaponManager.TryUsePrimaryWeapon())
+            if (_weaponManager.TryUseSelectedWeapon())
                 AttackAnimation();
         }
         else if (CurrentMode == Mode.Building)
         {
-            //建築モードのときは攻撃ボタンで建築配置
+            // 建築モードでは攻撃ボタンで配置を実行（モードは維持）
             _structureManager.TryPlaceStructure();
-
         }
     }
 
-    private void SecondaryAttack(InputAction.CallbackContext context)
+    private void EquipPrimary(InputAction.CallbackContext context)
     {
-        if (CurrentMode == Mode.Attack)
-        {
-            if (_weaponManager.TryUseSecondaryWeapon())
-                AttackAnimation();
-        }
+        // E: 武器の選択だけ行い、表示は攻撃時に限定する
+        SwitchMode(Mode.Attack);
+        _weaponManager.SelectWeapon(0);
     }
 
-    private void ChangeMode(InputAction.CallbackContext context)
+    private void EquipSecondary(InputAction.CallbackContext context)
     {
-        Debug.Log("Mode Change");
-        if (CurrentMode == Mode.Attack)
-        {
-            CurrentMode = Mode.Building;
-            _structureManager.EnterBuildingMode();
-        }
-        else if (CurrentMode == Mode.Building)
-        {
-            CurrentMode = Mode.Attack;
+        // R: 武器の選択だけ行い、表示は攻撃時に限定する
+        SwitchMode(Mode.Attack);
+        _weaponManager.SelectWeapon(1);
+    }
+
+    private void SwitchMode(Mode mode)
+    {
+        if (CurrentMode == mode) return;
+
+        //モード終了処理
+        if (CurrentMode == Mode.Building)
             _structureManager.ExitBuildingMode();
-        }
+        else if (CurrentMode == Mode.Attack)
+            _weaponManager.UnequipCurrentWeapon();
+
+        CurrentMode = mode;
+
+        //モード開始処理
+        if (CurrentMode == Mode.Building)
+            _structureManager.EnterBuildingMode();
 
         OnModeChanged?.Invoke(CurrentMode);
     }
@@ -234,6 +240,8 @@ public class PlayerController : MonoBehaviour
             _ => throw new System.NotImplementedException()
         };
         _structureManager.SelectStructure(slotIndex);
+
+        SwitchMode(Mode.Building);
     }
 
     private void SpawnAlly(InputAction.CallbackContext context)
@@ -258,21 +266,16 @@ public class PlayerController : MonoBehaviour
             _moveAction.Disable();
             _jumpAction.Disable();
             _attackAction.Disable();
-            _attackAction.Disable();
-            _modeChange.Disable();
         }
         else
         {
             _moveAction.Enable();
             _jumpAction.Enable();
             _attackAction.Enable();
-            _attackAction.Enable();
-            _modeChange.Enable();
         }
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
-        CurrentMode = Mode.Attack;
-        OnModeChanged?.Invoke(CurrentMode);
+        SwitchMode(Mode.Attack);
     }
 }
 

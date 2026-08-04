@@ -34,15 +34,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack2",
-                    "type": "Button",
-                    "id": "7758632d-0700-4067-b9ec-e24b7d1ae82a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ModeChange",
                     "type": "Button",
                     "id": "f55df37e-d491-47c9-ae2c-d86f55fcb0a0",
@@ -106,10 +97,37 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "EquipPrimary",
+                    "type": "Button",
+                    "id": "d3f9b2a0-6f4c-4a1b-9e2f-1c2b3a4d5e6f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EquipSecondary",
+                    "type": "Button",
+                    "id": "e4a1c2b3-7d8e-4f9a-8b1c-2d3e4f5a6b7c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "SpawnAlly",
                     "type": "Button",
                     "id": "d2822b4d-dbc8-4efc-a2ff-4016e872c507",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "85a826b8-ab13-4981-9b50-6bfb71d856f6",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -305,28 +323,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dfb79333-0767-46d9-8522-cf8fbb41876a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Attack2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b661b233-b6cf-41c1-9f62-b4cfe968a536",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b316397c-08a4-491d-98ba-26a15cd7c4d8",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -371,6 +367,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a7f8b6d5-5f5d-462e-87a7-85d4052295c2",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3d7f89c0-b67a-46cb-82d1-2967b7510d5e",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
@@ -399,17 +406,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "792ea2f0-e9a8-4bc0-b9a9-9e1aba5f39bc",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ModeChange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -459,12 +455,45 @@
                 },
                 {
                     "name": "",
+                    "id": "f1e2d3c4-1234-5678-9abc-def012345678",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipPrimary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a1b2c3d-2345-6789-abcd-ef0123456789",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipSecondary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bbc491da-66ae-489c-ab8c-220f30188691",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "SpawnAlly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "543f294a-fe23-4125-b245-cc2bd51a3f31",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
