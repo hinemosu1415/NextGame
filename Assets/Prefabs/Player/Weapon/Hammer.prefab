@@ -110,6 +110,7 @@ MonoBehaviour:
     WeaponName: Hammer
     DamageAmount: 100
     CoolTime: 1
+  _attackAnimationClipName: AttackShort
 --- !u!95 &3136778619705771245
 Animator:
   serializedVersion: 7
