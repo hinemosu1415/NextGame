@@ -3902,6 +3902,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 756378024}
+    - target: {fileID: 868086534165045436, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 756378024}
     - target: {fileID: 1178039386936801783, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1

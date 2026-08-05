@@ -4309,54 +4309,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 302078965}
     m_Modifications:
-    - target: {fileID: 123277564874696922, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 123277564874696922, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 123277564874696922, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 570666890632758248, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _buildingManager
-      value: 
-      objectReference: {fileID: 2043700764}
-    - target: {fileID: 570666890632758248, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _playerController
-      value: 
-      objectReference: {fileID: 2043700766}
     - target: {fileID: 868086534165045436, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: Player
+      propertyPath: _player
       value: 
       objectReference: {fileID: 505651415}
-    - target: {fileID: 1178039386936801783, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655661063878162933, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755718718165808893, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _playerWallet
-      value: 
-      objectReference: {fileID: 2043700748}
-    - target: {fileID: 1844825245924495223, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 1844825245924495223, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 1844825245924495223, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2290556391823185213, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4437,61 +4393,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2665468326329700584, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _playerAllyManager
-      value: 
-      objectReference: {fileID: 2043700786}
     - target: {fileID: 4193249387171373993, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: _enemySpawner
       value: 
       objectReference: {fileID: 774680227}
-    - target: {fileID: 5960244231915489580, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 5960244231915489580, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 5960244231915489580, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278584476248532074, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6977512217549294675, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
       propertyPath: m_Name
       value: GamePlayingUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8036838284614096454, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 8036838284614096454, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 8036838284614096454, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8889616714874487037, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: _health
-      value: 
-      objectReference: {fileID: 2043700749}
-    - target: {fileID: 9125955349967045214, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 9125955349967045214, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    - target: {fileID: 9125955349967045214, guid: 42bb5ec50601d4a39afdb764ac7180ab, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4525,55 +4433,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2a02bf329f5439388c43015d596bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinWallet
---- !u!114 &2043700749 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2661061160532804966, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
-  m_PrefabInstance: {fileID: 1002139815}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505651415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75bde8f3560cfea40aad262d2a835090, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!4 &2043700758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8113305405434122685, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
   m_PrefabInstance: {fileID: 1002139815}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2043700764 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6808467293976408606, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
-  m_PrefabInstance: {fileID: 1002139815}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505651415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e083ab67f585b4ed68336d0df7687788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildingManager
---- !u!114 &2043700766 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2657262360820082321, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
-  m_PrefabInstance: {fileID: 1002139815}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505651415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b7ea7a79744fa41b48bba5c3aab37c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
---- !u!114 &2043700786 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2521965484126557445, guid: ff89456e4d9fc4253bc554bc1a4b963e, type: 3}
-  m_PrefabInstance: {fileID: 1002139815}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505651415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56acd7eaa6a3b4e7898b4fc3613db3fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAllyManager
 --- !u!4 &2084434731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8834175080060217960, guid: e0cbb333888c54a488ff83405cb9d4c6, type: 3}

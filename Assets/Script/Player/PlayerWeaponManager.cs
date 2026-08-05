@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class PlayerWeaponManager : MonoBehaviour
 
     // -1は、現在武器が装備されていないことを意味します。
     private int _currentWeaponIndex = -1;
+
+    public PlayerWeaponData[] PlayerWeaponDataArray => _playerWeaponDataArray;
+    public event Action<int> OnSelectedStructureChanged;
 
     public WeaponBase.WeaponState CurrentWeaponState =>
         (_currentWeaponIndex >= 0 && _weapons != null && _currentWeaponIndex < _weapons.Length)
@@ -58,10 +62,12 @@ public class PlayerWeaponManager : MonoBehaviour
     public void SelectWeapon(int index)
     {
         if (index < 0 || index >= _weapons.Length) return;
+        if (CurrentWeaponState == WeaponBase.WeaponState.Attacking) return;
 
         UnequipCurrentWeapon();
 
         _currentWeaponIndex = index;
+        OnSelectedStructureChanged?.Invoke(_currentWeaponIndex);
     }
 
     public bool TryUseSelectedWeapon()

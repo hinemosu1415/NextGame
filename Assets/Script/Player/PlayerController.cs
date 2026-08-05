@@ -276,6 +276,8 @@ public class PlayerController : MonoBehaviour
 
         //建築モード中に死んだとき、UIが表示されたままになるバグの仮修正
         SwitchMode(Mode.Attack);
+        //武器スロットでどの武器も選択されないままリスポーンするバグの仮修正
+        _weaponManager.SelectWeapon(0);
     }
 }
 

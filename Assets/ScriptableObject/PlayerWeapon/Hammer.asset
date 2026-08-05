@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponData
   weaponBase: {fileID: 6577305756939457091, guid: 899cf62b68798429faf274d870d0d959, type: 3}
   EquippedOffset: {x: -0.15, y: -0.35}
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: 8a0075e8e7b164cd298442461f424bdf, type: 3}
