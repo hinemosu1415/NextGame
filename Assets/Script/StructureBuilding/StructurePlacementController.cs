@@ -51,13 +51,13 @@ public class StructurePlacementController : MonoBehaviour
         _gridSnapper.SetGridSize(_structureEntry.StructureData.GridSize);
     }
 
-    public bool TryPlaceStructure()
+    public bool TryPlaceStructure(GameObject player)
     {
         //建造物の配置処理        
         if (CurrentBuildCheck.CanBuild)
         {
             BuildingBox buildingBox = Instantiate(_buildingBox, _placementPreview.transform.position, Quaternion.identity);
-            buildingBox.Init(_structureEntry.StructureData);
+            buildingBox.Init(_structureEntry.StructureData, player);
             return true;
         }
 

@@ -4,6 +4,7 @@ using Utility;
 public class BuildingBox : MonoBehaviour
 {
     private GameObject _structurePrefab;
+    private GameObject _player;
     private CountdownTimer _buildTimer;
     private Health _health;
     protected void Awake()
@@ -18,9 +19,10 @@ public class BuildingBox : MonoBehaviour
         }
     }
 
-    public void Init(StructureData data)
+    public void Init(StructureData data, GameObject player)
     {
         _structurePrefab = data.Prefab;
+        _player = player;
         _buildTimer = new CountdownTimer(data.BuildTime);
         _buildTimer.Start();
         transform.localScale = new Vector2(
@@ -34,7 +36,8 @@ public class BuildingBox : MonoBehaviour
         _buildTimer.Tick();
         if (_buildTimer.IsFinished())
         {
-            Instantiate(_structurePrefab, transform.position, Quaternion.identity);
+            Structure structure = Instantiate(_structurePrefab, transform.position, Quaternion.identity).GetComponent<Structure>();
+            structure.Init(_player);
             Destroy(gameObject);
         }
     }
