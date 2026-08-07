@@ -24,12 +24,12 @@ public class PlayerWeaponSlotUI : SlotUI
             entryUI.Init(_weaponManager.PlayerWeaponDataArray[i], i == 0 ? "E" : "R"); //TODO: キーバインドからキーの割り当てを行うように変更する
         }
 
-        _weaponManager.OnSelectedStructureChanged += UpdateSelectedWeapon;
+        _weaponManager.OnSelectedStructureChanged += UpdateSelectedEntry;
 
-        UpdateSelectedWeapon(0);
+        UpdateSelectedEntry(0);
     }
 
-    private void UpdateSelectedWeapon(int index)
+    protected override void UpdateSelectedEntry(int index)
     {
         for (int i = 0; i < _entryUIList.Count; i++)
         {

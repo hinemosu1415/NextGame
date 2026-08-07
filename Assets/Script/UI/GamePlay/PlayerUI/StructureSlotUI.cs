@@ -25,14 +25,14 @@ public class StructureSlotUI : SlotUI
             entryUI.Init(_buildingManager.Entries[i], keyName);
         }
 
-        _buildingManager.OnSelectedStructureChanged += UpdateSelectedStructure;
+        _buildingManager.OnSelectedStructureChanged += UpdateSelectedEntry;
 
         _cashedCanBuild = _buildingManager.CanBuildSelectedStructure;
     }
 
     private void OnDestroy()
     {
-        _buildingManager.OnSelectedStructureChanged -= UpdateSelectedStructure;
+        _buildingManager.OnSelectedStructureChanged -= UpdateSelectedEntry;
     }
 
     private void LateUpdate()
@@ -44,7 +44,7 @@ public class StructureSlotUI : SlotUI
         }
     }
 
-    private void UpdateSelectedStructure(int index)
+    protected override void UpdateSelectedEntry(int index)
     {
         for (int i = 0; i < _entryUIList.Count; i++)
         {

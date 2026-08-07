@@ -4,6 +4,7 @@ public abstract class SlotUI : MonoBehaviour
 {
     [SerializeField] protected GameObject _slotContents;
 
+    protected abstract void UpdateSelectedEntry(int index);
     public abstract void Focused();
     public abstract void Unfocused();
 }
