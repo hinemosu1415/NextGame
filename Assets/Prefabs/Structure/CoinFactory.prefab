@@ -108,10 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77616d7dcc3f04ec0a8139876d2cee1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinHouse
-  _executeInterval: 4
-  _coinPrefab: {fileID: 4619581420056894063, guid: 59eb2bc6fe4fc484ebe1d0b98619b707, type: 3}
-  _spawnForceMax: 3
-  _spawnForceMin: 2
+  _executeInterval: 0.5
 --- !u!114 &7370336818433982413
 MonoBehaviour:
   m_ObjectHideFlags: 0

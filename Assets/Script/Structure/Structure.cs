@@ -7,6 +7,7 @@ public abstract class Structure : MonoBehaviour
     [SerializeField] protected float _executeInterval = 2.0f;
 
     private Health _health;
+    protected GameObject _player;
     protected CountdownTimer _cooldownTimer;
 
     protected void Awake()
@@ -20,6 +21,11 @@ public abstract class Structure : MonoBehaviour
             _health.OnDied += Die;
         }
         _cooldownTimer = new CountdownTimer(_executeInterval);
+    }
+
+    public virtual void Init(GameObject player)
+    {
+        _player = player;
     }
 
     protected virtual void Update()
