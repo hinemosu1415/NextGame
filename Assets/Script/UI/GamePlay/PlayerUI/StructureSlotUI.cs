@@ -1,57 +1,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingModeUI : MonoBehaviour
+public class StructureSlotUI : SlotUI
 {
     [SerializeField] private StructureEntryUI _entryPrefab;
-    [SerializeField] private GameObject _structureSlot;
     [SerializeField] private GameObject _buildIcon;
 
     private PlayerBuildingManager _buildingManager;
-    private PlayerController _playerController;
     private List<StructureEntryUI> _entryUIList = new();
     private bool _cashedCanBuild = true;
 
-    public void Init(PlayerBuildingManager buildingManager, PlayerController playerController)
+    public void Init(PlayerBuildingManager buildingManager)
     {
         _buildingManager = buildingManager;
-        _playerController = playerController;
     }
 
     private void Start()
     {
         for (int i = 0; i < _buildingManager.Entries.Count; i++)
         {
-            StructureEntryUI entryUI = Instantiate(_entryPrefab, _structureSlot.transform);
+            StructureEntryUI entryUI = Instantiate(_entryPrefab, _slotContents.transform);
             _entryUIList.Add(entryUI);
             string keyName = (i + 1).ToString();
             entryUI.Init(_buildingManager.Entries[i], keyName);
         }
 
-        _buildingManager.OnSelectedStructureChanged += UpdateSelectedStructure;
-        _playerController.OnModeChanged += SetActiveByMode;
+        _buildingManager.OnSelectedStructureChanged += UpdateSelectedEntry;
 
-        UpdateSelectedStructure(0);
-        SetActiveByMode(_playerController.CurrentMode);
         _cashedCanBuild = _buildingManager.CanBuildSelectedStructure;
     }
 
     private void OnDestroy()
     {
-        _buildingManager.OnSelectedStructureChanged -= UpdateSelectedStructure;
-        _playerController.OnModeChanged -= SetActiveByMode;
-    }
-
-    private void SetActiveByMode(PlayerController.Mode mode)
-    {
-        if (mode == PlayerController.Mode.Building)
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        _buildingManager.OnSelectedStructureChanged -= UpdateSelectedEntry;
     }
 
     private void LateUpdate()
@@ -63,12 +44,26 @@ public class BuildingModeUI : MonoBehaviour
         }
     }
 
-    private void UpdateSelectedStructure(int index)
+    protected override void UpdateSelectedEntry(int index)
     {
         for (int i = 0; i < _entryUIList.Count; i++)
         {
             bool isSelected = i == index;
             _entryUIList[i].SetSelected(isSelected);
+        }
+    }
+
+    public override void Focused()
+    {
+        _buildIcon.SetActive(true);
+    }
+
+    public override void Unfocused()
+    {
+        _buildIcon.SetActive(false);
+        for (int i = 0; i < _entryUIList.Count; i++)
+        {
+            _entryUIList[i].SetSelected(false);
         }
     }
 }

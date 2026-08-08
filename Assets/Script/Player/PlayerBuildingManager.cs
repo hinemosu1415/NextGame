@@ -46,7 +46,6 @@ public class PlayerBuildingManager : MonoBehaviour
 
     private void Start()
     {
-        SelectStructure(0); //最初の建造物を選択しておく        
         ExitBuildingMode();
         _currencyWallet.OnCurrencyChanged += OnCoinChanged;
     }
