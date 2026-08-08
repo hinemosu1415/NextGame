@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a371534bad74d3eaa6e2058122892e, type: 3}
   m_Name: Mortar
   m_EditorClassIdentifier: Assembly-CSharp::StructureData
-  Prefab: {fileID: 1992931727299567992, guid: 494477618e4ac4aeabb64ba965be4eaf, type: 3}
-  Image: {fileID: 21300000, guid: 6e72487655abe449997f715447486ccb, type: 3}
-  Cost: 10
-  BuildTime: 0.1
-  GridSize: {x: 1, y: 2}
+  Prefab: {fileID: 2868774408571263601, guid: 7af8f2de2f4cd41439be1a02319b09ad, type: 3}
+  Image: {fileID: 21300000, guid: 26ad6446d5d254dbdaf5df047816b311, type: 3}
+  Cost: 100
+  BuildTime: 12
+  GridSize: {x: 2, y: 2}
