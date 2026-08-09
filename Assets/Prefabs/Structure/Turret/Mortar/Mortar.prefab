@@ -113,8 +113,8 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 3246191426088775441, guid: 41de34f200292403fa18f00c5b53095c, type: 3}
   _damageAmount: 50
   _explosionDamageAmount: 120
-  _spawnForceYMin: 7
-  _spawnForceYMax: 5
+  _spawnForceYMin: 5
+  _spawnForceYMax: 7
   _targetRange: 3
 --- !u!114 &2533471960911491255
 MonoBehaviour:
