@@ -1,13 +1,11 @@
 using UnityEngine;
 using Utility;
 
-public class MissileBullet : Projectile
+public class MissileBullet : ExplosiveProjectile
 {
     [Header("MissileBullet")]
     [SerializeField] protected float _rotateSpeed = 200f;
     [SerializeField] protected float _homingDelay = 0.5f;
-    [SerializeField] protected float _explosionDamage;
-    [SerializeField] protected Explosion _explosionPrefab;
 
     private Transform target;
     private CountdownTimer timer;
@@ -24,18 +22,6 @@ public class MissileBullet : Projectile
     {
         base.Start();
         timer = new CountdownTimer(_homingDelay);
-    }
-
-    protected override void OnDestroy()
-    {
-        // 爆発を生成
-        if (_explosionPrefab != null)
-        {
-            Explosion explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            explosion.Init(_explosionDamage);
-        }
-
-        base.OnDestroy();
     }
 
     protected override void Move()
