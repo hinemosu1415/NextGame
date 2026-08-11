@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Gem
   _lifetime: 30
   _invincibilityDuration: 0.15
+  _pickupSound: {fileID: 8300000, guid: fd52c4146c2a849c9bfd5ccee0c3d869, type: 3}
   _cost: 1
 --- !u!50 &9000271652868964001
 Rigidbody2D:
