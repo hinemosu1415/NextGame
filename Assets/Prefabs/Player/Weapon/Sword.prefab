@@ -110,6 +110,7 @@ MonoBehaviour:
     WeaponName: Sword
     DamageAmount: 50
     CoolTime: 0.15
+  _attackSound: {fileID: 8300000, guid: 141d239c63ec84bed80f92c48a4023a1, type: 3}
   _attackAnimationClipName: AttackShort
 --- !u!95 &3136778619705771245
 Animator:
