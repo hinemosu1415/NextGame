@@ -1,19 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    [Header("Audio Mixer")]
+
+    [SerializeField] private AudioMixerGroup _bgmMixerGroup;
+    [SerializeField] private AudioMixerGroup _soundEffectMixerGroup;
+
+
     [Header("Sound Effects")]
     [SerializeField] private int _soundEffectPoolSize = 20;
+    [SerializeField] private float _sameSoundInterval = 0.05f;
+    [SerializeField] private int _maxQueuedSoundEffects = 10;
+    [SerializeField] private float _pitchVariation = 0.05f;
 
     [Header("BGM")]
     [SerializeField] private float _bgmFadeDuration = 2f;
 
     private readonly List<AudioSource> _soundEffectSources = new();
     private readonly Dictionary<AudioSource, float> _soundEffectStartTimes = new();
+
+    // AudioClipごとの未再生回数
+    private readonly Dictionary<AudioClip, int> _soundEffectCounts = new();
+
+    // AudioClipごとの再生処理
+    private readonly Dictionary<AudioClip, Coroutine> _soundEffectCoroutines = new();
 
     private AudioSource _bgmSource;
     private Coroutine _bgmCoroutine;
@@ -30,18 +46,18 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         InitializeSoundEffectPool();
-        _bgmSource = CreateAudioSource("BGM");
+        _bgmSource = CreateAudioSource("BGM", _bgmMixerGroup);
     }
 
     private void InitializeSoundEffectPool()
     {
         for (int i = 0; i < _soundEffectPoolSize; i++)
         {
-            _soundEffectSources.Add(CreateAudioSource($"SE_{i}"));
+            _soundEffectSources.Add(CreateAudioSource($"SE{i}", _soundEffectMixerGroup));
         }
     }
 
-    private AudioSource CreateAudioSource(string sourceName)
+    private AudioSource CreateAudioSource(string sourceName, AudioMixerGroup mixerGroup)
     {
         GameObject audioObject = new GameObject(sourceName);
         audioObject.transform.SetParent(transform);
@@ -49,6 +65,7 @@ public class AudioManager : MonoBehaviour
         AudioSource audioSource = audioObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 0f;
+        audioSource.outputAudioMixerGroup = mixerGroup;
 
         return audioSource;
     }
@@ -69,13 +86,20 @@ public class AudioManager : MonoBehaviour
     private AudioSource GetOldestSoundEffectSource()
     {
         AudioSource oldestSource = _soundEffectSources[0];
+
         float oldestStartTime =
-            _soundEffectStartTimes.GetValueOrDefault(oldestSource, float.MaxValue);
+            _soundEffectStartTimes.GetValueOrDefault(
+                oldestSource,
+                float.MaxValue
+            );
 
         foreach (AudioSource source in _soundEffectSources)
         {
             float startTime =
-                _soundEffectStartTimes.GetValueOrDefault(source, float.MaxValue);
+                _soundEffectStartTimes.GetValueOrDefault(
+                    source,
+                    float.MaxValue
+                );
 
             if (startTime < oldestStartTime)
             {
@@ -91,16 +115,59 @@ public class AudioManager : MonoBehaviour
     {
         if (clip == null)
         {
-            Debug.LogWarning("Sound effect clip is null.");
             return;
         }
 
-        AudioSource source = GetAvailableSoundEffectSource();
+        // 現在の未再生回数を取得
+        _soundEffectCounts.TryGetValue(clip, out int count);
 
-        source.Stop();
-        source.PlayOneShot(clip);
+        // 最大再生待ち数を超えていたら追加しない
+        if (count >= _maxQueuedSoundEffects)
+        {
+            return;
+        }
 
-        _soundEffectStartTimes[source] = Time.time;
+        // 再生要求を1つ追加
+        _soundEffectCounts[clip] = count + 1;
+
+        // すでに再生処理中なら、カウントだけ増やして終了
+        if (_soundEffectCoroutines.ContainsKey(clip))
+        {
+            return;
+        }
+
+        // このSEの再生処理を開始
+        Coroutine coroutine = StartCoroutine(ProcessSoundEffect(clip));
+        _soundEffectCoroutines.Add(clip, coroutine);
+    }
+
+    private IEnumerator ProcessSoundEffect(AudioClip clip)
+    {
+        while (_soundEffectCounts.TryGetValue(clip, out int count) && count > 0)
+        {
+            AudioSource source = GetAvailableSoundEffectSource();
+
+            source.Stop();
+
+            // 同じSEでも毎回少しだけピッチを変える
+            source.pitch = Random.Range(
+                1f - _pitchVariation,
+                1f + _pitchVariation
+            );
+
+            source.PlayOneShot(clip);
+
+            _soundEffectStartTimes[source] = Time.time;
+
+            // 未再生回数を1つ消費
+            _soundEffectCounts[clip] = count - 1;
+
+            // 次の再生まで待機
+            yield return new WaitForSeconds(_sameSoundInterval);
+        }
+
+        _soundEffectCounts.Remove(clip);
+        _soundEffectCoroutines.Remove(clip);
     }
 
     public void PlayBGM(AudioClip clip, bool loop = true)
@@ -192,6 +259,14 @@ public class AudioManager : MonoBehaviour
         }
 
         _soundEffectStartTimes.Clear();
+
+        foreach (Coroutine coroutine in _soundEffectCoroutines.Values)
+        {
+            StopCoroutine(coroutine);
+        }
+
+        _soundEffectCoroutines.Clear();
+        _soundEffectCounts.Clear();
     }
 
     private void StopBGMTransition()
