@@ -200,8 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDeathAnimator
   _knockbackForce: 5
   _rotationSpeed: 100
-  _destroyDelay: 0.5
-  _searchRadius: 10
+  _deathSound: {fileID: 8300000, guid: cabb11edbeb624aa8b942116e2bc7b00, type: 3}
 --- !u!95 &8415900586108805001
 Animator:
   serializedVersion: 7
