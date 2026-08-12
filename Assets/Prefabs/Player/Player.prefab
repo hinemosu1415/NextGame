@@ -934,6 +934,7 @@ MonoBehaviour:
   _spawnCost: 10
   _spawnTransform: {fileID: 0}
   _targetTransform: {fileID: 0}
+  _spawnSound: {fileID: 8300000, guid: ee655d019888b4a3ab0952c1a3e8ed28, type: 3}
 --- !u!114 &6304543317347794888
 MonoBehaviour:
   m_ObjectHideFlags: 0
