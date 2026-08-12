@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1681233774692216124}
   - component: {fileID: 6907420801800402464}
   - component: {fileID: 2533471960911491255}
+  - component: {fileID: -6645251871394951447}
   - component: {fileID: 2218388540086721585}
   - component: {fileID: 391170447447585262}
   m_Layer: 11
@@ -130,6 +131,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 80
   _currentHealth: 0
+--- !u!114 &-6645251871394951447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868774408571263601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e10888e9d3f4074b70a1321cdccf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageAudio
+  _damageSound: {fileID: 0}
+  _DieSound: {fileID: 8300000, guid: ce5c05316374c4d8980e568199d8dee6, type: 3}
 --- !u!61 &2218388540086721585
 BoxCollider2D:
   m_ObjectHideFlags: 0

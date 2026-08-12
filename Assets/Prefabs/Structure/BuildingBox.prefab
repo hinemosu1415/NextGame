@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 5188212843246592776}
   - component: {fileID: -4623445184215560509}
   - component: {fileID: 6173350761422684433}
+  - component: {fileID: -2089935437305227854}
   - component: {fileID: 8025389804906235156}
   - component: {fileID: 7911841209324462344}
   m_Layer: 11
@@ -178,6 +179,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 20
   _currentHealth: 0
+--- !u!114 &-2089935437305227854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8075887036337208551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e10888e9d3f4074b70a1321cdccf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageAudio
+  _damageSound: {fileID: 0}
+  _DieSound: {fileID: 8300000, guid: ce5c05316374c4d8980e568199d8dee6, type: 3}
 --- !u!50 &8025389804906235156
 Rigidbody2D:
   serializedVersion: 5
