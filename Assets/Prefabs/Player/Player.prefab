@@ -774,6 +774,7 @@ GameObject:
   - component: {fileID: -5002456368781470912}
   - component: {fileID: 5524093445840077495}
   - component: {fileID: 4403821164584887795}
+  - component: {fileID: 5513249969921859590}
   - component: {fileID: 2496341395458143598}
   - component: {fileID: 4962964937671980220}
   - component: {fileID: -270791443910438903}
@@ -1023,6 +1024,20 @@ MonoBehaviour:
   _deathTeleportPoint: {fileID: 0}
   _lockDuration: 3
   _countdownDisplay: {fileID: 0}
+--- !u!114 &5513249969921859590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792236778970836163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e10888e9d3f4074b70a1321cdccf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageAudio
+  _damageSound: {fileID: 8300000, guid: 3b5b953397c6146998077e90f966686b, type: 3}
+  _DieSound: {fileID: 8300000, guid: fd8d693390e5844a8ba00323cf7fff81, type: 3}
 --- !u!95 &2496341395458143598
 Animator:
   serializedVersion: 7
