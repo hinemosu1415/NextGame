@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6909587993140754176
+--- !u!1 &6582631157031628691
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3754122616550619317}
-  - component: {fileID: 7758931226682516949}
+  - component: {fileID: 6023849876607642665}
+  - component: {fileID: 75200083973077206}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: BGMController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3754122616550619317
+--- !u!4 &6023849876607642665
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6909587993140754176}
+  m_GameObject: {fileID: 6582631157031628691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,22 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7758931226682516949
+--- !u!114 &75200083973077206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6909587993140754176}
+  m_GameObject: {fileID: 6582631157031628691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa173eedbf4c94f2aad06e27a5e9512c, type: 3}
+  m_Script: {fileID: 11500000, guid: af48d3c36a66f4ff7a3d51c344045b4f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  _bgmMixerGroup: {fileID: 2808649642884868930, guid: 3f20d7f7c781b472eaa4ed9aa3af95db, type: 2}
-  _soundEffectMixerGroup: {fileID: 4867102560890797268, guid: 3f20d7f7c781b472eaa4ed9aa3af95db, type: 2}
-  _soundEffectPoolSize: 20
-  _sameSoundInterval: 0.1
-  _maxQueuedSoundEffects: 5
-  _pitchVariation: 0.05
-  _bgmFadeDuration: 2
+  m_EditorClassIdentifier: Assembly-CSharp::BGMController
+  _stageBgmClip: {fileID: 8300000, guid: 3fff245aa46844844ad4a672702e96a9, type: 3}
