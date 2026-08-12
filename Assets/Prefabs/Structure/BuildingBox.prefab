@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554daa15b275146bbaaf0f5571296962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingBox
+  _buildingSound: {fileID: 8300000, guid: 1ff62f03c0deb4f5888686a87af04103, type: 3}
+  _buildCompleteSound: {fileID: 8300000, guid: bbde927f5f296427ba97a5181f93745b, type: 3}
 --- !u!114 &6173350761422684433
 MonoBehaviour:
   m_ObjectHideFlags: 0
