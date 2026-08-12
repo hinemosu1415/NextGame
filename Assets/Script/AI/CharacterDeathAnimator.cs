@@ -5,7 +5,6 @@ public class CharacterDeathAnimator : MonoBehaviour
 {
     [SerializeField] private float _knockbackForce = 5f;
     [SerializeField] private float _rotationSpeed = 100f;
-    [SerializeField] private AudioClip _deathSound;
 
     private readonly Vector2 KNOCKBACK_LEFT = Quaternion.Euler(0, 0, 135) * Vector2.right;
     private readonly Vector2 KNOCKBACK_RIGHT = Quaternion.Euler(0, 0, 45) * Vector2.right;
@@ -19,8 +18,6 @@ public class CharacterDeathAnimator : MonoBehaviour
 
     public void PlayDeathAnimation()
     {
-        AudioManager.Instance.PlaySoundEffect(_deathSound);
-
         _rigidbody.constraints = RigidbodyConstraints2D.None;
 
         Vector2 knockbackDirection = GetKnockbackDirection();
