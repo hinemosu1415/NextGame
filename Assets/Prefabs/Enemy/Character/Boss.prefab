@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 2447270333455950194}
   - component: {fileID: 6420717610663546647}
   - component: {fileID: 8213713042073122246}
+  - component: {fileID: 2477647706420344731}
   - component: {fileID: 206231485295626653}
   - component: {fileID: 3086154318967958022}
   - component: {fileID: 7446688044297608900}
@@ -324,8 +325,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDeathAnimator
   _knockbackForce: 5
   _rotationSpeed: 100
-  _destroyDelay: 0.5
-  _searchRadius: 10
+--- !u!114 &2477647706420344731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437554141696259431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e10888e9d3f4074b70a1321cdccf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageAudio
+  _damageSound: {fileID: 0}
+  _DieSound: {fileID: 8300000, guid: cabb11edbeb624aa8b942116e2bc7b00, type: 3}
 --- !u!95 &206231485295626653
 Animator:
   serializedVersion: 7

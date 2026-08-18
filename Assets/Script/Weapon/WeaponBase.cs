@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData _weaponData;
+    [SerializeField] protected AudioClip _attackSound;
 
     private SpriteRenderer _renderer;
 
@@ -34,6 +35,12 @@ public abstract class WeaponBase : MonoBehaviour
         StartCoroutine(AttackAndCooldown());
 
         return true;
+    }
+
+    public void PlayAttackSound()
+    {
+        Debug.Log($"Playing attack sound for weapon: {WeaponName}");
+        AudioManager.Instance.PlaySoundEffect(_attackSound);
     }
 
     private IEnumerator AttackAndCooldown()

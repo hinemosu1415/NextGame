@@ -6,6 +6,8 @@ public abstract class Item : MonoBehaviour
     [SerializeField] private float _lifetime = 10f;
     [SerializeField] private float _invincibilityDuration = 0.1f;
 
+    [SerializeField] private AudioClip _pickupSound;
+
     private Collider2D _collider;
 
     private void Awake()
@@ -28,9 +30,13 @@ public abstract class Item : MonoBehaviour
 
     public void Consume(GameObject collector)
     {
+        if (_pickupSound != null)
+        {
+            AudioManager.Instance.PlaySoundEffect(_pickupSound);
+        }
+
         Execute(collector);
         Dispose();
-
     }
 
     protected virtual void Dispose()

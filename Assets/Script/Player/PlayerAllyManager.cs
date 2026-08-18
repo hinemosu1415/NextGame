@@ -6,6 +6,7 @@ public class PlayerAllyManager : MonoBehaviour
     [SerializeField] private int _spawnCost;
     [SerializeField] private Transform _spawnTransform;
     [SerializeField] private Transform _targetTransform;
+    [SerializeField] private AudioClip _spawnSound;
 
     private CurrencyWallet _currencyWallet;
     private int _allyIndex = 0;
@@ -52,7 +53,7 @@ public class PlayerAllyManager : MonoBehaviour
             ally.GetComponent<CharacterAIController>().Init(_targetTransform);
             NextAllyEntry = GetNextAllyEntry();
             OnNextAllyEntryChanged?.Invoke(NextAllyEntry);
-
+            AudioManager.Instance.PlaySoundEffect(_spawnSound);
             return true;
         }
 

@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Explosion
   _lifetime: 0.5
+  _explosionSound: {fileID: 8300000, guid: 7bdf399c1b4c44052a2724c48bb37bf2, type: 3}
 --- !u!114 &9152795992037122786
 MonoBehaviour:
   m_ObjectHideFlags: 0

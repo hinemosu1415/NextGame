@@ -3,6 +3,7 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     [SerializeField] private float _lifetime;
+    [SerializeField] private AudioClip _explosionSound;
     protected Hitbox _hitbox;
     private float _damageAmount;
 
@@ -19,6 +20,7 @@ public class Explosion : MonoBehaviour
     private void Start()
     {
         _hitbox.OnFirstHit += DealDamage;
+        AudioManager.Instance.PlaySoundEffect(_explosionSound);
         Destroy(gameObject, _lifetime);
     }
 
