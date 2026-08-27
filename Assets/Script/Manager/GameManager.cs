@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    private void GameClear()
+    public void GameClear()
     {
         SetGameState(GameState.GameClear);
     }

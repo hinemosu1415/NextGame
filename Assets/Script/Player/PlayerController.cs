@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private int _currentJumpCount = 0;
 
     public event Action<Mode> OnModeChanged;
+    public event Action OnJumped;
+    public event Action OnPrimaryAttacked;
 
     private const int MAX_SLOT_COUNT = 4;
 
@@ -171,6 +173,7 @@ public class PlayerController : MonoBehaviour
             _playerAnimator.JumpAnimation();
 
         _currentJumpCount++;
+        OnJumped?.Invoke();
     }
 
     private void JumpCanceled(InputAction.CallbackContext context)
@@ -187,7 +190,10 @@ public class PlayerController : MonoBehaviour
         if (CurrentMode == Mode.Attack)
         {
             if (_weaponManager.TryUseSelectedWeapon())
+            {
                 AttackAnimation();
+                OnPrimaryAttacked?.Invoke();
+            }
         }
         else if (CurrentMode == Mode.Building)
         {
