@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public enum TutorialStep
 {
@@ -8,6 +7,7 @@ public enum TutorialStep
     Jump,
     HealthExplanation,
     WaveExplanation,
+    AttackExplanation,
     Attack,
     ChangeMode,
     PlaceStructure,
@@ -21,30 +21,18 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private PlayerBuildingManager _buildingManager;
     [SerializeField] private PlayerAllyManager _allyManager;
-    [SerializeField] private Health _dummyEnemy;
     [SerializeField] private TutorialUI _tutorialUI;
     [SerializeField] private float _requiredMoveDistance = 3f;
     [Header("Tutorial enemy wave")]
     [SerializeField] private WaveEnemySpawner _waveEnemySpawner;
-    [SerializeField, Min(1)] private int _enemySpawnCount = 1;
-    [SerializeField] private GameObject _bossPrefab;
 
     public TutorialStep CurrentStep { get; private set; } = TutorialStep.Move;
 
     private float _startX;
-    private float _dummyEnemyHealthRatio;
-    private bool _isChangingStep;
+    private Health _practiceEnemyHealth;
     private bool _hasSpawnedTutorialEnemies;
     private Health _bossHealth;
     private bool _hasSpawnedBoss;
-
-    private void Awake()
-    {
-        if (_player == null) _player = FindFirstObjectByType<PlayerController>();
-        if (_buildingManager == null && _player != null) _buildingManager = _player.GetComponent<PlayerBuildingManager>();
-        if (_allyManager == null && _player != null) _allyManager = _player.GetComponent<PlayerAllyManager>();
-        if (_waveEnemySpawner == null) _waveEnemySpawner = FindFirstObjectByType<WaveEnemySpawner>();
-    }
 
     private void Start()
     {
@@ -57,13 +45,12 @@ public class TutorialManager : MonoBehaviour
 
         _startX = _player.transform.position.x;
         if (_waveEnemySpawner != null)
-            _waveEnemySpawner.SetAutoSpawnEnabled(false);
+            _waveEnemySpawner.SetAutoSpawn(false);
         _player.OnJumped += CompleteJump;
-        _player.OnPrimaryAttacked += CompleteAttackInput;
         _player.OnModeChanged += CompleteModeChange;
         if (_buildingManager != null) _buildingManager.OnStructurePlaced += CompleteStructurePlacement;
         if (_allyManager != null) _allyManager.OnAllySpawned += CompleteAllySummon;
-        SubscribeToAttackTarget(_dummyEnemy);
+        _tutorialUI.OnAdvanceRequested += CompleteManualStep;
         if (_waveEnemySpawner != null)
             _waveEnemySpawner.OnEnemySpawned += HandleEnemySpawned;
 
@@ -72,23 +59,12 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (CurrentStep == TutorialStep.HealthExplanation ||
-            CurrentStep == TutorialStep.WaveExplanation)
-        {
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard != null &&
-                (keyboard.enterKey.wasPressedThisFrame || keyboard.numpadEnterKey.wasPressedThisFrame))
-            {
-                TutorialStep nextStep = CurrentStep == TutorialStep.HealthExplanation
-                    ? TutorialStep.WaveExplanation
-                    : TutorialStep.Attack;
-                AdvanceTo(nextStep);
-            }
-            return;
-        }
+        if (CurrentStep == TutorialStep.Move)
+            CheckMoveProgress();
+    }
 
-        if (CurrentStep != TutorialStep.Move || _player == null) return;
-
+    private void CheckMoveProgress()
+    {
         if (Mathf.Abs(_player.transform.position.x - _startX) >= _requiredMoveDistance)
             AdvanceTo(TutorialStep.Jump);
     }
@@ -98,12 +74,12 @@ public class TutorialManager : MonoBehaviour
         if (_player != null)
         {
             _player.OnJumped -= CompleteJump;
-            _player.OnPrimaryAttacked -= CompleteAttackInput;
             _player.OnModeChanged -= CompleteModeChange;
         }
         if (_buildingManager != null) _buildingManager.OnStructurePlaced -= CompleteStructurePlacement;
         if (_allyManager != null) _allyManager.OnAllySpawned -= CompleteAllySummon;
-        if (_dummyEnemy != null) _dummyEnemy.OnHealthChanged -= HandleDummyEnemyHealthChanged;
+        if (_tutorialUI != null) _tutorialUI.OnAdvanceRequested -= CompleteManualStep;
+        if (_practiceEnemyHealth != null) _practiceEnemyHealth.OnDied -= CompletePracticeEnemyBattle;
         if (_waveEnemySpawner != null) _waveEnemySpawner.OnEnemySpawned -= HandleEnemySpawned;
         if (_bossHealth != null) _bossHealth.OnDied -= CompleteBossBattle;
     }
@@ -113,27 +89,35 @@ public class TutorialManager : MonoBehaviour
         if (CurrentStep == TutorialStep.Jump) AdvanceTo(TutorialStep.HealthExplanation);
     }
 
-    private void CompleteAttackInput()
+    private void CompleteManualStep()
     {
-        // The dummy's health change confirms that the attack reached its target.
+        if (CurrentStep == TutorialStep.HealthExplanation)
+            AdvanceTo(TutorialStep.WaveExplanation);
+        else if (CurrentStep == TutorialStep.WaveExplanation)
+            AdvanceTo(TutorialStep.AttackExplanation);
+        else if (CurrentStep == TutorialStep.AttackExplanation)
+            AdvanceTo(TutorialStep.Attack);
+        else if (CurrentStep == TutorialStep.SummonAlly)
+            AdvanceTo(TutorialStep.Boss);
     }
 
-    private void HandleDummyEnemyHealthChanged(float healthRatio)
+    private void CompletePracticeEnemyBattle()
     {
-        if (CurrentStep == TutorialStep.Attack && healthRatio < _dummyEnemyHealthRatio)
+        if (_practiceEnemyHealth != null)
+            _practiceEnemyHealth.OnDied -= CompletePracticeEnemyBattle;
+
+        if (CurrentStep == TutorialStep.Attack)
             AdvanceTo(TutorialStep.ChangeMode);
-        _dummyEnemyHealthRatio = healthRatio;
     }
 
     private void SubscribeToAttackTarget(Health enemyHealth)
     {
         if (enemyHealth == null) return;
-        if (_dummyEnemy != null)
-            _dummyEnemy.OnHealthChanged -= HandleDummyEnemyHealthChanged;
+        if (_practiceEnemyHealth != null)
+            _practiceEnemyHealth.OnDied -= CompletePracticeEnemyBattle;
 
-        _dummyEnemy = enemyHealth;
-        _dummyEnemyHealthRatio = _dummyEnemy.HealthRatio;
-        _dummyEnemy.OnHealthChanged += HandleDummyEnemyHealthChanged;
+        _practiceEnemyHealth = enemyHealth;
+        _practiceEnemyHealth.OnDied += CompletePracticeEnemyBattle;
     }
 
     private void HandleEnemySpawned(Health enemyHealth)
@@ -169,12 +153,10 @@ public class TutorialManager : MonoBehaviour
 
     private void AdvanceTo(TutorialStep nextStep)
     {
-        if (_isChangingStep || (int)nextStep <= (int)CurrentStep) return;
+        if ((int)nextStep <= (int)CurrentStep) return;
 
-        _isChangingStep = true;
         CurrentStep = nextStep;
         ShowCurrentStep();
-        _isChangingStep = false;
     }
 
     private void ShowCurrentStep()
@@ -185,22 +167,21 @@ public class TutorialManager : MonoBehaviour
             CurrentStep == TutorialStep.Attack)
         {
             _hasSpawnedTutorialEnemies = true;
-            _waveEnemySpawner.SpawnImmediateFromCurrentWave(_enemySpawnCount);
+            _waveEnemySpawner.SpawnNextEnemy();
         }
 
         if (CurrentStep == TutorialStep.Boss && !_hasSpawnedBoss)
         {
             _hasSpawnedBoss = true;
 
-            if (_waveEnemySpawner == null || _bossPrefab == null)
+            _bossHealth = _waveEnemySpawner.SpawnNextEnemy();
+            if (_bossHealth == null)
             {
-                Debug.LogError("TutorialManager requires a WaveEnemySpawner and Boss Prefab for the boss step.");
+                Debug.LogError("The tutorial WaveData requires a boss after the practice enemy.");
                 return;
             }
 
-            _bossHealth = _waveEnemySpawner.SpawnImmediate(_bossPrefab);
-            if (_bossHealth != null)
-                _bossHealth.OnDied += CompleteBossBattle;
+            _bossHealth.OnDied += CompleteBossBattle;
         }
 
         if (CurrentStep == TutorialStep.Complete)
