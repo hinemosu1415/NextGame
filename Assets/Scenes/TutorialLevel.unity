@@ -751,7 +751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328019261}
   m_Layer: 5
-  m_Name: WaveBarPointa
+  m_Name: WaveBarPointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,7 +988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 483006133}
   m_Layer: 5
-  m_Name: HealthBarPointa
+  m_Name: HealthBarPointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
