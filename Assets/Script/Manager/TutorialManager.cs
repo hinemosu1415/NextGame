@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public enum TutorialStep
@@ -30,9 +29,7 @@ public class TutorialManager : MonoBehaviour
 
     private float _startX;
     private Health _practiceEnemyHealth;
-    private bool _hasSpawnedTutorialEnemies;
     private Health _bossHealth;
-    private bool _hasSpawnedBoss;
 
     private void Start()
     {
@@ -55,6 +52,7 @@ public class TutorialManager : MonoBehaviour
             _waveEnemySpawner.OnEnemySpawned += HandleEnemySpawned;
 
         ShowCurrentStep();
+        StartCurrentStep();
     }
 
     private void Update()
@@ -104,7 +102,10 @@ public class TutorialManager : MonoBehaviour
     private void CompletePracticeEnemyBattle()
     {
         if (_practiceEnemyHealth != null)
+        {
             _practiceEnemyHealth.OnDied -= CompletePracticeEnemyBattle;
+            _practiceEnemyHealth = null;
+        }
 
         if (CurrentStep == TutorialStep.Attack)
             AdvanceTo(TutorialStep.ChangeMode);
@@ -145,7 +146,10 @@ public class TutorialManager : MonoBehaviour
     private void CompleteBossBattle()
     {
         if (_bossHealth != null)
+        {
             _bossHealth.OnDied -= CompleteBossBattle;
+            _bossHealth = null;
+        }
 
         if (CurrentStep == TutorialStep.Boss)
             AdvanceTo(TutorialStep.Complete);
@@ -157,42 +161,50 @@ public class TutorialManager : MonoBehaviour
 
         CurrentStep = nextStep;
         ShowCurrentStep();
+        StartCurrentStep();
     }
 
     private void ShowCurrentStep()
     {
         _tutorialUI.ShowStep(CurrentStep);
+    }
 
-        if (!_hasSpawnedTutorialEnemies && _waveEnemySpawner != null &&
-            CurrentStep == TutorialStep.Attack)
+    private void StartCurrentStep()
+    {
+        switch (CurrentStep)
         {
-            _hasSpawnedTutorialEnemies = true;
-            _waveEnemySpawner.SpawnNextEnemy();
+            case TutorialStep.Attack:
+                StartPracticeEnemyBattle();
+                break;
+            case TutorialStep.Boss:
+                StartBossBattle();
+                break;
+            case TutorialStep.Complete:
+                CompleteTutorial();
+                break;
+        }
+    }
+
+    private void StartPracticeEnemyBattle()
+    {
+        _waveEnemySpawner.SpawnNextEnemy();
+    }
+
+    private void StartBossBattle()
+    {
+        _bossHealth = _waveEnemySpawner.SpawnNextEnemy();
+        if (_bossHealth == null)
+        {
+            Debug.LogError("The tutorial WaveData requires a boss after the practice enemy.");
+            return;
         }
 
-        if (CurrentStep == TutorialStep.Boss && !_hasSpawnedBoss)
-        {
-            _hasSpawnedBoss = true;
+        _bossHealth.OnDied += CompleteBossBattle;
+    }
 
-            _bossHealth = _waveEnemySpawner.SpawnNextEnemy();
-            if (_bossHealth == null)
-            {
-                Debug.LogError("The tutorial WaveData requires a boss after the practice enemy.");
-                return;
-            }
-
-            _bossHealth.OnDied += CompleteBossBattle;
-        }
-
-        if (CurrentStep == TutorialStep.Complete)
-        {
-            PlayerPrefs.SetInt("TutorialCompleted", 1);
-            PlayerPrefs.Save();
-
-            if (GameManager.Instance != null)
-                GameManager.Instance.GameClear();
-            else
-                Debug.LogError("Tutorial clear requires a GameManager in the scene.");
-        }
+    private void CompleteTutorial()
+    {
+        TutorialProgress.SaveCompleted();
+        GameManager.Instance.GameClear();
     }
 }

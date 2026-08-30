@@ -57,30 +57,21 @@ public class TutorialUI : MonoBehaviour
                                step == TutorialStep.WaveExplanation ||
                                step == TutorialStep.AttackExplanation ||
                                step == TutorialStep.SummonAlly;
+        SetPanelVisibility(step);
 
         switch (step)
         {
             case TutorialStep.HealthExplanation:
-                SetPanelVisibility(false, true, false);
-                break;
-
             case TutorialStep.WaveExplanation:
-                SetPanelVisibility(false, false, true);
-                break;
-
             case TutorialStep.Complete:
-                SetPanelVisibility(false, false, false);
-                break;
-
             case TutorialStep.Attack:
-                SetPanelVisibility(false, false, false);
                 break;
 
             default:
-                SetPanelVisibility(true, false, false);
-                _titleText.text = GetTitle(step);
-                _instructionText.text = GetInstruction(step);
-                _bindingText.text = GetBindingText(step);
+                TutorialStepContent content = GetContent(step);
+                _titleText.text = content.Title;
+                _instructionText.text = content.Instruction;
+                _bindingText.text = content.BindingText;
 
                 if (step == TutorialStep.Boss)
                     _hideBossPopupCoroutine = StartCoroutine(HideBossPopupAfterDelay());
@@ -95,8 +86,15 @@ public class TutorialUI : MonoBehaviour
         _hideBossPopupCoroutine = null;
     }
 
-    private void SetPanelVisibility(bool showStep, bool showHealth, bool showWave)
+    private void SetPanelVisibility(TutorialStep step)
     {
+        bool showHealth = step == TutorialStep.HealthExplanation;
+        bool showWave = step == TutorialStep.WaveExplanation;
+        bool showStep = !showHealth &&
+                        !showWave &&
+                        step != TutorialStep.Attack &&
+                        step != TutorialStep.Complete;
+
         _stepPanel.SetActive(showStep);
         _healthExplanationPanel.SetActive(showHealth);
         _waveExplanationPanel.SetActive(showWave);
@@ -108,48 +106,42 @@ public class TutorialUI : MonoBehaviour
             OnAdvanceRequested?.Invoke();
     }
 
-    private string GetTitle(TutorialStep step)
+    private TutorialStepContent GetContent(TutorialStep step)
     {
         return step switch
         {
-            TutorialStep.Move => "移動してみよう！",
-            TutorialStep.Jump => "ジャンプしてみよう！",
-            TutorialStep.AttackExplanation => "攻撃してみよう！",
-            TutorialStep.ChangeMode => "モードを切り替えよう！",
-            TutorialStep.PlaceStructure => "建築物を設置しよう！",
-            TutorialStep.SummonAlly => "味方を召喚しよう！",
-            TutorialStep.Boss => "ボス戦！",
-            _ => string.Empty
+            TutorialStep.Move => new TutorialStepContent(
+                "移動してみよう！", "左右に移動してください。", "A / D または ← / →"),
+            TutorialStep.Jump => new TutorialStepContent(
+                "ジャンプしてみよう！", "ジャンプしてください。", "Space または W または ↑"),
+            TutorialStep.AttackExplanation => new TutorialStepContent(
+                "攻撃してみよう！", "Enterを押して敵を出現させ、倒してください。", "Enterで開始 / 左クリックで攻撃"),
+            TutorialStep.ChangeMode => new TutorialStepContent(
+                "モードを切り替えよう！", "建築モードに切り替えてください。", "建築スロットのキー（1～4）"),
+            TutorialStep.PlaceStructure => new TutorialStepContent(
+                "建築物を設置しよう！", "建築可能な場所に建物を設置してください。", "左クリック"),
+            TutorialStep.SummonAlly => new TutorialStepContent(
+                "味方を召喚しよう！", "味方を召喚してください。", "Ctrl（召喚済みの場合は Enter）"),
+            TutorialStep.Boss => new TutorialStepContent(
+                "ボス戦！", "ボスを倒してください。", string.Empty),
+            _ => TutorialStepContent.Empty
         };
     }
 
-    private string GetInstruction(TutorialStep step)
+    private readonly struct TutorialStepContent
     {
-        return step switch
-        {
-            TutorialStep.Move => "左右に移動してください。",
-            TutorialStep.Jump => "ジャンプしてください。",
-            TutorialStep.AttackExplanation => "Enterを押して敵を出現させ、倒してください。",
-            TutorialStep.ChangeMode => "建築モードに切り替えてください。",
-            TutorialStep.PlaceStructure => "建築可能な場所に建物を設置してください。",
-            TutorialStep.SummonAlly => "味方を召喚してください。",
-            TutorialStep.Boss => "ボスを倒してください。",
-            _ => string.Empty
-        };
-    }
+        public static readonly TutorialStepContent Empty = new(
+            string.Empty, string.Empty, string.Empty);
 
-    private string GetBindingText(TutorialStep step)
-    {
-        return step switch
+        public string Title { get; }
+        public string Instruction { get; }
+        public string BindingText { get; }
+
+        public TutorialStepContent(string title, string instruction, string bindingText)
         {
-            TutorialStep.Move => "A / D または ← / →",
-            TutorialStep.Jump => "Space または W または ↑",
-            TutorialStep.AttackExplanation => "Enterで開始 / 左クリックで攻撃",
-            TutorialStep.ChangeMode => "建築スロットのキー（1～4）",
-            TutorialStep.PlaceStructure => "左クリック",
-            TutorialStep.SummonAlly => "Ctrl（召喚済みの場合は Enter）",
-            TutorialStep.Boss => "",
-            _ => string.Empty
-        };
+            Title = title;
+            Instruction = instruction;
+            BindingText = bindingText;
+        }
     }
 }
