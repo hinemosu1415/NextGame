@@ -31,6 +31,7 @@ public class PlayerBuildingManager : MonoBehaviour
     private int _selectedStructureIndex = 0;
     public bool CanBuildSelectedStructure => _structurePlacement.CurrentBuildCheck.CanBuild;
     public event Action<int> OnSelectedStructureChanged;
+    public event Action OnStructurePlaced;
     public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
 
     private void Awake()
@@ -87,6 +88,7 @@ public class PlayerBuildingManager : MonoBehaviour
         if (_structurePlacement.TryPlaceStructure(gameObject))
         {
             _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, Entries[_selectedStructureIndex].StructureData.Cost);
+            OnStructurePlaced?.Invoke();
         }
     }
 }

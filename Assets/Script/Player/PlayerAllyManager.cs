@@ -16,6 +16,7 @@ public class PlayerAllyManager : MonoBehaviour
     public int AllyToken { get; private set; }
     public Action<float, int> OnSpawnCapacityChanged;
     public Action<AllyData> OnNextAllyEntryChanged;
+    public event Action OnAllySpawned;
 
     private void Awake()
     {
@@ -53,6 +54,7 @@ public class PlayerAllyManager : MonoBehaviour
             ally.GetComponent<CharacterAIController>().Init(_targetTransform);
             NextAllyEntry = GetNextAllyEntry();
             OnNextAllyEntryChanged?.Invoke(NextAllyEntry);
+            OnAllySpawned?.Invoke();
             AudioManager.Instance.PlaySoundEffect(_spawnSound);
             return true;
         }

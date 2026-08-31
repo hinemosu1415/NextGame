@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WaveEnemySpawner : MonoBehaviour, IWaveProgressProvider
 {
@@ -9,24 +9,42 @@ public class WaveEnemySpawner : MonoBehaviour, IWaveProgressProvider
     [SerializeField] private WaveData _waveData;
     [SerializeField] private CurrencyWallet _playerCurrencyWallet;
     [SerializeField] private int _killExperience = 1; //TODO:個別で経験値を設定する場合は経験値処理を分ける
+    [FormerlySerializedAs("_registerToGameManager")]
+    [SerializeField] private bool _contributesToGameClearProgress = true;
+    [SerializeField] private bool _autoSpawnOnStart = true;
 
     private int _maxEnemyCount = 0;
     private int _killedEnemyCount = 0;
     private float _timer = 0;
     private int _enemyIndex = 0;
+    private bool _autoSpawnEnabled;
 
     public float ProgressRatio => (float)_killedEnemyCount / (_maxEnemyCount != 0 ? _maxEnemyCount : 1);
     public event Action<float> OnProgressChanged;
+    public event Action<Health> OnEnemySpawned;
+
+    private void Awake()
+    {
+        _autoSpawnEnabled = _autoSpawnOnStart;
+        _enemyIndex = Mathf.Clamp(_firstIndex, 0, _waveData.EnemyList.Length);
+        _maxEnemyCount = _waveData.EnemyList.Length - _enemyIndex;
+    }
 
     private void Start()
     {
-        _enemyIndex = Mathf.Clamp(_firstIndex, 0, _waveData.EnemyList.Length);
-        _maxEnemyCount = _waveData.EnemyList.Length - _firstIndex;
-        GameManager.Instance.EnemyWaveProgressProviders.Add(this);
+        if (_contributesToGameClearProgress)
+            GameManager.Instance.EnemyWaveProgressProviders.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        if (_contributesToGameClearProgress)
+            GameManager.Instance.EnemyWaveProgressProviders.Remove(this);
     }
 
     private void Update()
     {
+        if (!_autoSpawnEnabled) return;
         if (_enemyIndex >= _waveData.EnemyList.Length) return;
 
         _timer += Time.deltaTime;
@@ -34,25 +52,41 @@ public class WaveEnemySpawner : MonoBehaviour, IWaveProgressProvider
         WaveData.EnemySpawnInfo spawnInfo = _waveData.EnemyList[_enemyIndex];
         if (spawnInfo.SpawnDelaySecond <= _timer)
         {
-            SpawnEnemy(spawnInfo.EnemyPrefab);
-            _enemyIndex++;
-
+            SpawnNextEnemy();
             _timer = 0;
         }
     }
 
-    protected void SpawnEnemy(GameObject enemyPre)
+    public void SetAutoSpawn(bool enabled)
+    {
+        _autoSpawnEnabled = enabled;
+    }
+
+    public Health SpawnNextEnemy()
+    {
+        if (_enemyIndex >= _waveData.EnemyList.Length) return null;
+
+        WaveData.EnemySpawnInfo spawnInfo = _waveData.EnemyList[_enemyIndex];
+        _enemyIndex++;
+        return SpawnEnemy(spawnInfo.EnemyPrefab);
+    }
+
+    protected Health SpawnEnemy(GameObject enemyPre)
     {
         GameObject enemy = Instantiate(enemyPre, transform.position, transform.rotation, transform);
         enemy.GetComponent<CharacterAIController>().Init(_target);
-        enemy.GetComponent<Health>().OnDied += OnEnemyKilled;
-
+        Health enemyHealth = enemy.GetComponent<Health>();
+        enemyHealth.OnDied += OnEnemyKilled;
+        OnEnemySpawned?.Invoke(enemyHealth);
+        return enemyHealth;
     }
 
     private void OnEnemyKilled()
     {
         _killedEnemyCount++;
-        _playerCurrencyWallet.AddCurrency(CurrencyData.CurrencyType.Experience, _killExperience);
+        if (_playerCurrencyWallet != null)
+            _playerCurrencyWallet.AddCurrency(CurrencyData.CurrencyType.Experience, _killExperience);
         OnProgressChanged?.Invoke(ProgressRatio);
     }
+
 }

@@ -16,6 +16,7 @@ public class ScreenManager : MonoBehaviour
     public enum SceneType //ここで遷移するシーンを定義
     {
         MainMenuScene,
+        TutorialLevel,
         EasyLevel,
         NormalLevel
     }

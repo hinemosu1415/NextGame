@@ -72,7 +72,8 @@ public class CharacterAIController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.CurrentGameState != GameState.Playing)
+        // Tutorial scenes can run enemies without a GameManager.
+        if (GameManager.Instance != null && GameManager.Instance.CurrentGameState != GameState.Playing)
         {
             _rigidbody.linearVelocity = Vector2.zero;
             return;

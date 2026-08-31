@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041ed1f04148e48168b84a8af36d29ad, type: 3}
+  m_Name: TutorialWave
+  m_EditorClassIdentifier: Assembly-CSharp::WaveData
+  EnemyList:
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: ded1171ca88e54419be887a79100a009, type: 3}
+    SpawnDelaySecond: 0
+  - EnemyPrefab: {fileID: 8437554141696259431, guid: e3942bb7fae5a184da8e4ab32c7f0347, type: 3}
+    SpawnDelaySecond: 0
