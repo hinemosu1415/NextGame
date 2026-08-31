@@ -24,23 +24,33 @@ public class StructureEntry
 [RequireComponent(typeof(CurrencyWallet))]
 public class PlayerBuildingManager : MonoBehaviour
 {
-    [SerializeField] private StructureData[] _structures;
+    [SerializeField] private GameSaveData _gameData;
     [SerializeField] private StructurePlacementController _structurePlacement;
 
     private CurrencyWallet _currencyWallet;
     private int _selectedStructureIndex = 0;
-    public bool CanBuildSelectedStructure => _structurePlacement.CurrentBuildCheck.CanBuild;
+
+    public bool CanBuildSelectedStructure =>
+        _structurePlacement.CurrentBuildCheck.CanBuild;
+
     public event Action<int> OnSelectedStructureChanged;
     public event Action OnStructurePlaced;
-    public List<StructureEntry> Entries { get; private set; } = new List<StructureEntry>();
+
+    public List<StructureEntry> Entries { get; private set; } = new();
 
     private void Awake()
     {
         _currencyWallet = GetComponent<CurrencyWallet>();
-        foreach (var structure in _structures)
+
+        foreach (var structure in _gameData.SelectedStructures)
         {
             StructureEntry entry = new StructureEntry(structure);
-            entry.UpdateHasCost(_currencyWallet.GetCurrencyAmount(CurrencyData.CurrencyType.Coin));
+            entry.UpdateHasCost(
+                _currencyWallet.GetCurrencyAmount(
+                    CurrencyData.CurrencyType.Coin
+                )
+            );
+
             Entries.Add(entry);
         }
     }
@@ -51,7 +61,7 @@ public class PlayerBuildingManager : MonoBehaviour
         _currencyWallet.OnCurrencyChanged += OnCoinChanged;
     }
 
-    public void OnDestroy()
+    private void OnDestroy()
     {
         _currencyWallet.OnCurrencyChanged -= OnCoinChanged;
     }
@@ -68,26 +78,44 @@ public class PlayerBuildingManager : MonoBehaviour
 
     public void SelectStructure(int index)
     {
-        if (index < 0 || index >= Entries.Count) return;
+        if (index < 0 || index >= Entries.Count)
+        {
+            return;
+        }
 
         _selectedStructureIndex = index;
+
         OnSelectedStructureChanged?.Invoke(index);
-        _structurePlacement.SetStructureEntry(Entries[_selectedStructureIndex]);
+
+        _structurePlacement.SetStructureEntry(
+            Entries[_selectedStructureIndex]
+        );
     }
 
-    private void OnCoinChanged(CurrencyData.CurrencyType type, int amount)
+    private void OnCoinChanged(
+        CurrencyData.CurrencyType type,
+        int amount)
     {
-        if (type != CurrencyData.CurrencyType.Coin) return;
+        if (type != CurrencyData.CurrencyType.Coin)
+        {
+            return;
+        }
 
-        foreach (var e in Entries)
-            e.UpdateHasCost(amount);
+        foreach (var entry in Entries)
+        {
+            entry.UpdateHasCost(amount);
+        }
     }
 
     public void TryPlaceStructure()
     {
         if (_structurePlacement.TryPlaceStructure(gameObject))
         {
-            _currencyWallet.TryConsumeCurrency(CurrencyData.CurrencyType.Coin, Entries[_selectedStructureIndex].StructureData.Cost);
+            _currencyWallet.TryConsumeCurrency(
+                CurrencyData.CurrencyType.Coin,
+                Entries[_selectedStructureIndex].StructureData.Cost
+            );
+
             OnStructurePlaced?.Invoke();
         }
     }

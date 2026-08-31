@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5105661f7700649cabfb558e80efaf14, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: Assembly-CSharp::GameSaveData
+  _selectedStructures:
+  - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
+  - {fileID: 11400000, guid: 0a5dcec7f0acf4c37a94e00d51691334, type: 2}
+  - {fileID: 11400000, guid: 17974c6c9dc6548b9b23614bcfe6d043, type: 2}
+  - {fileID: 11400000, guid: 0ac1b486a74024bb2bcbfbbab501793a, type: 2}
