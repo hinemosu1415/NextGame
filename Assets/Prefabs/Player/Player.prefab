@@ -909,11 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e083ab67f585b4ed68336d0df7687788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildingManager
-  _structures:
-  - {fileID: 11400000, guid: 86a9daae98c5243b8bd345b4c5bf32a6, type: 2}
-  - {fileID: 11400000, guid: 0a5dcec7f0acf4c37a94e00d51691334, type: 2}
-  - {fileID: 11400000, guid: 17974c6c9dc6548b9b23614bcfe6d043, type: 2}
-  - {fileID: 11400000, guid: 18c8021b666b54431a5b9474ee4efdc3, type: 2}
+  _gameData: {fileID: 11400000, guid: d755db3334f8444b3863ad5149ee6fe6, type: 2}
   _structurePlacement: {fileID: 5636535060355214845}
 --- !u!114 &2521965484126557445
 MonoBehaviour:

@@ -74,8 +74,6 @@ public class ScreenManager : MonoBehaviour
         _loadingUI.gameObject.SetActive(false);
     }
 
-    public T GetData<T>() { return default; } //TODO:シーン間でのデータのやり取り用
-
 #if UNITY_EDITOR
     private void ValidateScenesInBuild()
     {

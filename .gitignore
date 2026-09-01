@@ -19,3 +19,6 @@ MemoryCaptures/
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Large font .asset files excluded from Git tracking
+Assets/TextMesh Pro/**/*.asset
